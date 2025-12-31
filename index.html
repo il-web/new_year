@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>馃巹 Novi God Olympics 馃巹</title>
+    <title>Novi God Olympics</title>
     <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&family=Secular+One&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/peerjs@1.5.2/dist/peerjs.min.js"></script>
     <style>
@@ -1153,39 +1153,39 @@
 
     <!-- Mode Selection -->
     <div class="mode-selection" id="mode-selection">
-        <h1>馃巹 Novi God Olympics 馃巹</h1>
-        <p class="subtitle">讗讜诇讬诪驻讬讗讚转 讛砖谞讛 讛讞讚砖讛</p>
+        <h1>Novi God Olympics</h1>
+        <p class="subtitle">Party Game Controller</p>
         <div class="mode-buttons">
             <div class="mode-btn" onclick="selectMode('tv')">
-                <span class="icon">馃摵</span>
-                <span class="label">诪住讱 讟诇讜讜讬讝讬讛</span>
+                <span class="icon">TV</span>
+                <span class="label">TV Display</span>
             </div>
             <div class="mode-btn" onclick="selectMode('remote')">
-                <span class="icon">馃摫</span>
-                <span class="label">砖诇讟 专讞讜拽</span>
+                <span class="icon">Remote</span>
+                <span class="label">Remote Control</span>
             </div>
         </div>
     </div>
 
     <!-- TV Connection -->
     <div class="connection-screen" id="tv-connection">
-        <h2>馃摵 诪爪讘 讟诇讜讜讬讝讬讛</h2>
-        <p>拽讜讚 讛讞讚专 砖诇讱:</p>
+        <h2>TV Mode</h2>
+        <p>Your Room Code:</p>
         <div class="room-code" id="room-code">----</div>
-        <p class="connection-status" id="tv-status">诪诪转讬谉 诇讞讬讘讜专...</p>
+        <p class="connection-status" id="tv-status">Waiting for connection...</p>
     </div>
 
     <!-- Remote Connection -->
     <div class="connection-screen" id="remote-connection">
-        <h2>馃摫 砖诇讟 专讞讜拽</h2>
-        <p>讛讻谞住 拽讜讚 讞讚专:</p>
+        <h2>Remote Control</h2>
+        <p>Enter Room Code:</p>
         <div class="code-input">
             <input type="text" maxlength="1" id="code-1" oninput="handleCodeInput(this, 1)">
             <input type="text" maxlength="1" id="code-2" oninput="handleCodeInput(this, 2)">
             <input type="text" maxlength="1" id="code-3" oninput="handleCodeInput(this, 3)">
             <input type="text" maxlength="1" id="code-4" oninput="handleCodeInput(this, 4)">
         </div>
-        <button class="connect-btn" onclick="connectToTV()">讛转讞讘专</button>
+        <button class="connect-btn" onclick="connectToTV()">Connect</button>
         <p class="connection-status" id="remote-status"></p>
     </div>
 
@@ -1193,25 +1193,25 @@
     <div class="tv-display" id="tv-display">
         <div class="tv-header">
             <div class="tv-team-score team1">
-                <span class="tv-team-name" id="tv-team1-name">拽讘讜爪讛 讗讚讜诪讛</span>
+                <span class="tv-team-name" id="tv-team1-name">Red Team</span>
                 <span class="tv-score" id="tv-team1-score">0</span>
             </div>
             <span class="tv-vs">VS</span>
             <div class="tv-team-score team2">
                 <span class="tv-score" id="tv-team2-score">0</span>
-                <span class="tv-team-name" id="tv-team2-name">拽讘讜爪讛 讬专讜拽讛</span>
+                <span class="tv-team-name" id="tv-team2-name">Green Team</span>
             </div>
         </div>
         <div class="tv-main">
             <div class="tv-team-panel team1">
-                <div class="tv-panel-title" id="tv-panel-team1-name">拽讘讜爪讛 讗讚讜诪讛</div>
+                <div class="tv-panel-title" id="tv-panel-team1-name">Red Team</div>
                 <div class="tv-player-list" id="tv-team1-players"></div>
             </div>
             <div class="tv-center" id="tv-center">
-                <div class="tv-phase-text">诪讜住讬驻讬诐 砖讞拽谞讬诐...</div>
+                <div class="tv-phase-text">Adding players...</div>
             </div>
             <div class="tv-team-panel team2">
-                <div class="tv-panel-title" id="tv-panel-team2-name">拽讘讜爪讛 讬专讜拽讛</div>
+                <div class="tv-panel-title" id="tv-panel-team2-name">Green Team</div>
                 <div class="tv-player-list" id="tv-team2-players"></div>
             </div>
         </div>
@@ -1220,16 +1220,16 @@
     <!-- Remote Control -->
     <div class="remote-control" id="remote-control">
         <div class="remote-header">
-            <div class="remote-title">馃幃 砖诇讟 专讞讜拽</div>
-            <div class="remote-status" id="remote-connection-status">诪讞讜讘专</div>
+            <div class="remote-title">Remote Control</div>
+            <div class="remote-status" id="remote-connection-status">Connected</div>
         </div>
         <div class="remote-scorebar">
             <div class="remote-team-mini team1">
-                <div class="remote-team-mini-name" id="remote-team1-name">拽讘讜爪讛 讗讚讜诪讛</div>
+                <div class="remote-team-mini-name" id="remote-team1-name">Red Team</div>
                 <div class="remote-team-mini-score" id="remote-team1-score">0</div>
             </div>
             <div class="remote-team-mini team2">
-                <div class="remote-team-mini-name" id="remote-team2-name">拽讘讜爪讛 讬专讜拽讛</div>
+                <div class="remote-team-mini-name" id="remote-team2-name">Green Team</div>
                 <div class="remote-team-mini-score" id="remote-team2-score">0</div>
             </div>
         </div>
@@ -1239,24 +1239,24 @@
     </div>
 
     <script>
-        // Games data
+        // Games data - using simple text icons to avoid encoding issues
         const games = [
-            { id: 1, icon: '馃Щ', title: '诪讬专讜抓 谞讬讬专 讟讜讗诇讟', description: '讙诇讙讜诇 谞讬讬专 讟讜讗诇讟 注诐 讞驻抓 讘拽爪讛', type: 'individual', hasTimer: false },
-            { id: 2, icon: '馃暞锔?, title: '谞专 诇讘拽讘讜拽', description: '谞专 注诇 讞讜讟 拽砖讜专 诇诪讜转谉 诇转讜讱 讘拽讘讜拽', type: 'individual', hasTimer: false },
-            { id: 3, icon: '馃惔', title: '诇讗住讜祝 注诐 驻专住讜转', description: '讗讬住讜祝 讻讚讜专讬 爪诪专 讙驻谉 注诐 讻讜住讜转 注诇 讛讬讚讬讬诐', type: 'individual', hasTimer: true },
-            { id: 4, icon: '馃', title: '诇拽诇讜注 讙讜诇 注诐 拽砖', description: '谞砖讬驻转 讻讚讜专 诇讻讜住 注诐 拽砖 (诪转讜讱 3)', type: 'individual', hasTimer: false },
-            { id: 5, icon: '猸?, title: '讗讬拽住 注讬讙讜诇 讻讜住讜转', description: '讛驻讬讻转 讻讜住讜转 讜讛谞讞讛 注诇 诇讜讞 讗讬拽住 注讬讙讜诇', type: 'individual', hasTimer: false },
-            { id: 6, icon: '馃獞', title: '讻讬住讗讜转 诪讜讝讬拽诇讬讬诐', description: '讙专住讛 砖诇 讻讬住讗讜转 诪讜讝讬拽诇讬讬诐 (诪转讜讱 3)', type: 'individual', hasTimer: false },
-            { id: 7, icon: '馃攳', title: '诪爪讗 讗转 讛讛讘讚诇', description: '诪爪讬讗转 3 砖讬谞讜讬讬诐 讘拽讘讜爪讛 讛讬专讬讘讛', type: 'team', hasTimer: true },
-            { id: 8, icon: '馃幁', title: '驻谞讟讜诪讬诪讛', description: '砖讞诪讟 - 讛拽讘讜爪讛 诪爪讬讙讛 诇谞爪讬讙 砖诇讛', type: 'team', hasTimer: true }
+            { id: 1, icon: '[TP]', title: 'Toilet Paper Race', description: 'Roll toilet paper with object on end', type: 'individual', hasTimer: false },
+            { id: 2, icon: '[C]', title: 'Candle in Bottle', description: 'Candle on string tied to waist into bottle', type: 'individual', hasTimer: false },
+            { id: 3, icon: '[H]', title: 'Collect with Hooves', description: 'Collect cotton balls with cups on hands', type: 'individual', hasTimer: true },
+            { id: 4, icon: '[G]', title: 'Straw Goal', description: 'Blow ball into cup with straw (best of 3)', type: 'individual', hasTimer: false },
+            { id: 5, icon: '[X]', title: 'Cup Tic-Tac-Toe', description: 'Flip cups and place on tic-tac-toe board', type: 'individual', hasTimer: false },
+            { id: 6, icon: '[MC]', title: 'Musical Chairs', description: 'Musical chairs variant (best of 3)', type: 'individual', hasTimer: false },
+            { id: 7, icon: '[?]', title: 'Find the Difference', description: 'Spot 3 changes in opposing team', type: 'team', hasTimer: true },
+            { id: 8, icon: '[P]', title: 'Charades', description: 'Team acts for their representative', type: 'team', hasTimer: true }
         ];
 
         // State
         let state = {
             mode: null,
             phase: 'registration',
-            team1: { name: '拽讘讜爪讛 讗讚讜诪讛', players: [], score: 0 },
-            team2: { name: '拽讘讜爪讛 讬专讜拽讛', players: [], score: 0 },
+            team1: { name: 'Red Team', players: [], score: 0 },
+            team2: { name: 'Green Team', players: [], score: 0 },
             playedPlayers: { team1: [], team2: [] },
             completedGames: [],
             currentGame: null,
@@ -1308,7 +1308,7 @@
 
             peer.on('connection', (connection) => {
                 conn = connection;
-                document.getElementById('tv-status').textContent = '诪讞讜讘专!';
+                document.getElementById('tv-status').textContent = 'Connected!';
                 document.getElementById('tv-status').classList.add('connected');
 
                 setTimeout(() => {
@@ -1322,14 +1322,14 @@
                 });
 
                 conn.on('close', () => {
-                    document.getElementById('tv-status').textContent = '讛转谞转拽 - 专注谞谉 讗转 讛讚祝';
+                    document.getElementById('tv-status').textContent = 'Disconnected - refresh page';
                     document.getElementById('tv-status').classList.remove('connected');
                 });
             });
 
             peer.on('error', (err) => {
                 console.error('Peer error:', err);
-                document.getElementById('tv-status').textContent = '砖讙讬讗讛: ' + err.type;
+                document.getElementById('tv-status').textContent = 'Error: ' + err.type;
             });
         }
 
@@ -1350,11 +1350,11 @@
                 document.getElementById('code-4').value;
 
             if (code.length !== 4) {
-                document.getElementById('remote-status').textContent = '讛讻谞住 拽讜讚 讘谉 4 转讜讜讬诐';
+                document.getElementById('remote-status').textContent = 'Enter 4-character code';
                 return;
             }
 
-            document.getElementById('remote-status').textContent = '诪转讞讘专...';
+            document.getElementById('remote-status').textContent = 'Connecting...';
 
             peer = new Peer();
 
@@ -1362,7 +1362,7 @@
                 conn = peer.connect('noviGod-' + code);
 
                 conn.on('open', () => {
-                    document.getElementById('remote-status').textContent = '诪讞讜讘专!';
+                    document.getElementById('remote-status').textContent = 'Connected!';
                     document.getElementById('remote-status').classList.add('connected');
 
                     setTimeout(() => {
@@ -1377,14 +1377,14 @@
                 });
 
                 conn.on('close', () => {
-                    document.getElementById('remote-connection-status').textContent = '讛转谞转拽';
+                    document.getElementById('remote-connection-status').textContent = 'Disconnected';
                     document.getElementById('remote-connection-status').classList.remove('connected');
                 });
             });
 
             peer.on('error', (err) => {
                 console.error('Peer error:', err);
-                document.getElementById('remote-status').textContent = '砖讙讬讗讛: ' + err.type;
+                document.getElementById('remote-status').textContent = 'Error: ' + err.type;
             });
         }
 
@@ -1554,7 +1554,7 @@
         function formatTime(seconds) {
             const mins = Math.floor(seconds / 60);
             const secs = seconds % 60;
-            return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+            return mins.toString().padStart(2, '0') + ':' + secs.toString().padStart(2, '0');
         }
 
         // Update TV Display
@@ -1578,10 +1578,10 @@
         }
 
         function updateTVPlayerList(team) {
-            const container = document.getElementById(`tv-${team}-players`);
+            const container = document.getElementById('tv-' + team + '-players');
             container.innerHTML = '';
 
-            state[team].players.forEach(player => {
+            state[team].players.forEach(function(player) {
                 const div = document.createElement('div');
                 div.className = 'tv-player';
 
@@ -1591,10 +1591,8 @@
                 if (played && !playing) div.classList.add('played');
                 if (playing) div.classList.add('playing');
 
-                div.innerHTML = `
-                    <span>${player}</span>
-                    ${played ? '<span class="player-badge">砖讬讞拽</span>' : ''}
-                `;
+                div.innerHTML = '<span>' + player + '</span>' +
+                    (played ? '<span class="player-badge">Played</span>' : '');
                 container.appendChild(div);
             });
         }
@@ -1604,73 +1602,69 @@
 
             switch (state.phase) {
                 case 'registration':
-                    center.innerHTML = '<div class="tv-phase-text">诪讜住讬驻讬诐 砖讞拽谞讬诐...</div>';
+                    center.innerHTML = '<div class="tv-phase-text">Adding players...</div>';
                     break;
 
                 case 'game-selection':
-                    center.innerHTML = '<div class="tv-phase-text">讘讜讞专讬诐 诪砖讞拽...</div>';
+                    center.innerHTML = '<div class="tv-phase-text">Selecting game...</div>';
                     break;
 
                 case 'player-selection':
-                    center.innerHTML = `
-                        <div class="tv-game-icon">${state.currentGame.icon}</div>
-                        <div class="tv-game-title">${state.currentGame.title}</div>
-                        <div class="tv-game-desc">${state.currentGame.description}</div>
-                        <div class="tv-phase-text">讘讜讞专讬诐 砖讞拽谞讬诐...</div>
-                    `;
+                    center.innerHTML =
+                        '<div class="tv-game-icon">' + state.currentGame.icon + '</div>' +
+                        '<div class="tv-game-title">' + state.currentGame.title + '</div>' +
+                        '<div class="tv-game-desc">' + state.currentGame.description + '</div>' +
+                        '<div class="tv-phase-text">Selecting players...</div>';
                     break;
 
                 case 'playing':
-                    let timerHtml = '';
+                    var timerHtml = '';
                     if (state.currentGame.hasTimer) {
-                        timerHtml = `<div class="tv-timer">${formatTime(state.timer.seconds)}</div>`;
+                        timerHtml = '<div class="tv-timer">' + formatTime(state.timer.seconds) + '</div>';
                     }
-                    center.innerHTML = `
-                        <div class="tv-game-icon">${state.currentGame.icon}</div>
-                        <div class="tv-game-title">${state.currentGame.title}</div>
-                        ${timerHtml}
-                        <div class="tv-game-scores">
-                            <div class="tv-game-score team1">
-                                <div class="tv-game-score-value">${state.gameScores.team1}</div>
-                                <div class="tv-game-score-label">${state.team1.name}</div>
-                            </div>
-                            <div class="tv-game-score team2">
-                                <div class="tv-game-score-value">${state.gameScores.team2}</div>
-                                <div class="tv-game-score-label">${state.team2.name}</div>
-                            </div>
-                        </div>
-                    `;
+                    center.innerHTML =
+                        '<div class="tv-game-icon">' + state.currentGame.icon + '</div>' +
+                        '<div class="tv-game-title">' + state.currentGame.title + '</div>' +
+                        timerHtml +
+                        '<div class="tv-game-scores">' +
+                            '<div class="tv-game-score team1">' +
+                                '<div class="tv-game-score-value">' + state.gameScores.team1 + '</div>' +
+                                '<div class="tv-game-score-label">' + state.team1.name + '</div>' +
+                            '</div>' +
+                            '<div class="tv-game-score team2">' +
+                                '<div class="tv-game-score-value">' + state.gameScores.team2 + '</div>' +
+                                '<div class="tv-game-score-label">' + state.team2.name + '</div>' +
+                            '</div>' +
+                        '</div>';
                     break;
 
                 case 'winner':
-                    let winnerName = state.winner === 'tie' ? '转讬拽讜!' : state[state.winner].name;
-                    center.innerHTML = `
-                        <div class="tv-winner">
-                            <div class="tv-winner-trophy">馃弳</div>
-                            <div class="tv-winner-text ${state.winner}">${winnerName} 谞讬爪讞讛!</div>
-                        </div>
-                    `;
+                    var winnerName = state.winner === 'tie' ? 'Tie!' : state[state.winner].name + ' Wins!';
+                    center.innerHTML =
+                        '<div class="tv-winner">' +
+                            '<div class="tv-winner-trophy">TROPHY</div>' +
+                            '<div class="tv-winner-text ' + state.winner + '">' + winnerName + '</div>' +
+                        '</div>';
                     break;
 
                 case 'final':
-                    let finalWinnerName = state.winner === 'tie' ? '转讬拽讜!' : state[state.winner].name;
-                    center.innerHTML = `
-                        <div class="tv-final">
-                            <div class="tv-final-crown">馃憫</div>
-                            <div class="tv-final-title">讛诪谞爪讞讬诐 砖诇 Novi God Olympics!</div>
-                            <div class="tv-final-winner ${state.winner}">${finalWinnerName}</div>
-                            <div class="tv-final-scores">
-                                <div class="tv-final-score team1">
-                                    <div class="tv-final-score-value">${state.team1.score}</div>
-                                    <div>${state.team1.name}</div>
-                                </div>
-                                <div class="tv-final-score team2">
-                                    <div class="tv-final-score-value">${state.team2.score}</div>
-                                    <div>${state.team2.name}</div>
-                                </div>
-                            </div>
-                        </div>
-                    `;
+                    var finalWinnerName = state.winner === 'tie' ? 'Tie!' : state[state.winner].name + ' Wins!';
+                    center.innerHTML =
+                        '<div class="tv-final">' +
+                            '<div class="tv-final-crown">CROWN</div>' +
+                            '<div class="tv-final-title">Novi God Olympics Champions!</div>' +
+                            '<div class="tv-final-winner ' + state.winner + '">' + finalWinnerName + '</div>' +
+                            '<div class="tv-final-scores">' +
+                                '<div class="tv-final-score team1">' +
+                                    '<div class="tv-final-score-value">' + state.team1.score + '</div>' +
+                                    '<div>' + state.team1.name + '</div>' +
+                                '</div>' +
+                                '<div class="tv-final-score team2">' +
+                                    '<div class="tv-final-score-value">' + state.team2.score + '</div>' +
+                                    '<div>' + state.team2.name + '</div>' +
+                                '</div>' +
+                            '</div>' +
+                        '</div>';
                     // Show confetti
                     document.getElementById('confetti').classList.add('active');
                     createConfetti();
@@ -1720,213 +1714,190 @@
 
         function renderRegistration() {
             const canStart = state.team1.players.length > 0 && state.team2.players.length > 0;
-            return `
-                <div class="registration-teams">
-                    <div class="registration-team team1">
-                        <div class="registration-team-header">
-                            <input type="text" class="registration-team-name-input"
-                                value="${state.team1.name}"
-                                onchange="updateTeamName('team1', this.value)"
-                                placeholder="砖诐 拽讘讜爪讛">
-                        </div>
-                        <div class="registration-player-list">
-                            ${state.team1.players.map((p, i) => `
-                                <div class="registration-player">
-                                    ${p}
-                                    <span class="registration-player-remove" onclick="removePlayer('team1', ${i})">鉁?/span>
-                                </div>
-                            `).join('')}
-                        </div>
-                        <div class="registration-add-player">
-                            <input type="text" id="new-player-team1" placeholder="砖诐 砖讞拽谉" onkeypress="if(event.key==='Enter')addPlayer('team1')">
-                            <button onclick="addPlayer('team1')">+</button>
-                        </div>
-                    </div>
-                    <div class="registration-team team2">
-                        <div class="registration-team-header">
-                            <input type="text" class="registration-team-name-input"
-                                value="${state.team2.name}"
-                                onchange="updateTeamName('team2', this.value)"
-                                placeholder="砖诐 拽讘讜爪讛">
-                        </div>
-                        <div class="registration-player-list">
-                            ${state.team2.players.map((p, i) => `
-                                <div class="registration-player">
-                                    ${p}
-                                    <span class="registration-player-remove" onclick="removePlayer('team2', ${i})">鉁?/span>
-                                </div>
-                            `).join('')}
-                        </div>
-                        <div class="registration-add-player">
-                            <input type="text" id="new-player-team2" placeholder="砖诐 砖讞拽谉" onkeypress="if(event.key==='Enter')addPlayer('team2')">
-                            <button onclick="addPlayer('team2')">+</button>
-                        </div>
-                    </div>
-                </div>
-                <button class="start-games-btn" onclick="startGames()" ${canStart ? '' : 'disabled'}>
-                    讛转讞诇 诪砖讞拽讬诐! 馃帀
-                </button>
-            `;
+
+            var team1Players = '';
+            state.team1.players.forEach(function(p, i) {
+                team1Players += '<div class="registration-player">' + p +
+                    '<span class="registration-player-remove" onclick="removePlayer(\'team1\', ' + i + ')">X</span></div>';
+            });
+
+            var team2Players = '';
+            state.team2.players.forEach(function(p, i) {
+                team2Players += '<div class="registration-player">' + p +
+                    '<span class="registration-player-remove" onclick="removePlayer(\'team2\', ' + i + ')">X</span></div>';
+            });
+
+            return '<div class="registration-teams">' +
+                '<div class="registration-team team1">' +
+                    '<div class="registration-team-header">' +
+                        '<input type="text" class="registration-team-name-input" value="' + state.team1.name + '" ' +
+                            'onchange="updateTeamName(\'team1\', this.value)" placeholder="Team name">' +
+                    '</div>' +
+                    '<div class="registration-player-list">' + team1Players + '</div>' +
+                    '<div class="registration-add-player">' +
+                        '<input type="text" id="new-player-team1" placeholder="Player name" onkeypress="if(event.key===\'Enter\')addPlayer(\'team1\')">' +
+                        '<button onclick="addPlayer(\'team1\')">+</button>' +
+                    '</div>' +
+                '</div>' +
+                '<div class="registration-team team2">' +
+                    '<div class="registration-team-header">' +
+                        '<input type="text" class="registration-team-name-input" value="' + state.team2.name + '" ' +
+                            'onchange="updateTeamName(\'team2\', this.value)" placeholder="Team name">' +
+                    '</div>' +
+                    '<div class="registration-player-list">' + team2Players + '</div>' +
+                    '<div class="registration-add-player">' +
+                        '<input type="text" id="new-player-team2" placeholder="Player name" onkeypress="if(event.key===\'Enter\')addPlayer(\'team2\')">' +
+                        '<button onclick="addPlayer(\'team2\')">+</button>' +
+                    '</div>' +
+                '</div>' +
+            '</div>' +
+            '<button class="start-games-btn" onclick="startGames()" ' + (canStart ? '' : 'disabled') + '>' +
+                'Start Games!' +
+            '</button>';
         }
 
         function renderGameSelection() {
-            return `
-                <div class="game-grid">
-                    ${games.map(game => `
-                        <div class="game-card ${state.completedGames.includes(game.id) ? 'completed' : ''}"
-                             onclick="selectGame(${game.id})">
-                            <div class="game-card-icon">${game.icon}</div>
-                            <div class="game-card-title">${game.title}</div>
-                        </div>
-                    `).join('')}
-                </div>
-                <button class="finish-olympics-btn" onclick="showFinal()">
-                    住讬讜诐 讜讛讻专讝转 诪谞爪讞 馃弳
-                </button>
-            `;
+            var gameCards = '';
+            games.forEach(function(game) {
+                var completed = state.completedGames.includes(game.id) ? 'completed' : '';
+                gameCards += '<div class="game-card ' + completed + '" onclick="selectGame(' + game.id + ')">' +
+                    '<div class="game-card-icon">' + game.icon + '</div>' +
+                    '<div class="game-card-title">' + game.title + '</div>' +
+                '</div>';
+            });
+
+            return '<div class="game-grid">' + gameCards + '</div>' +
+                '<button class="finish-olympics-btn" onclick="showFinal()">Finish & Announce Winner</button>';
         }
 
         function renderPlayerSelection() {
             const game = state.currentGame;
             const isTeamGame = game.type === 'team';
 
-            return `
-                <div class="player-selection">
-                    <div class="player-selection-game">${game.icon}</div>
-                    <div class="player-selection-title">${game.title}</div>
-                    <p style="color: var(--text-muted); margin-bottom: 20px;">
-                        ${isTeamGame ? '诪砖讞拽 拽讘讜爪转讬 - 讻诇 讛拽讘讜爪讛 诪砖转转驻转' : '讘讞专 砖讞拽谉 诪讻诇 拽讘讜爪讛'}
-                    </p>
-                    <div class="player-selection-teams">
-                        <div class="player-selection-team team1">
-                            <div class="player-selection-team-title">${state.team1.name}</div>
-                            <div class="player-selection-list">
-                                ${state.team1.players.map(p => `
-                                    <div class="player-selection-item
-                                        ${state.playedPlayers.team1.includes(p) ? 'played' : ''}
-                                        ${state.currentPlayers.team1.includes(p) ? 'selected' : ''}"
-                                        onclick="selectPlayer('team1', '${p}')">
-                                        ${p}
-                                    </div>
-                                `).join('')}
-                            </div>
-                        </div>
-                        <div class="player-selection-team team2">
-                            <div class="player-selection-team-title">${state.team2.name}</div>
-                            <div class="player-selection-list">
-                                ${state.team2.players.map(p => `
-                                    <div class="player-selection-item
-                                        ${state.playedPlayers.team2.includes(p) ? 'played' : ''}
-                                        ${state.currentPlayers.team2.includes(p) ? 'selected' : ''}"
-                                        onclick="selectPlayer('team2', '${p}')">
-                                        ${p}
-                                    </div>
-                                `).join('')}
-                            </div>
-                        </div>
-                    </div>
-                    <button class="start-game-btn" onclick="startGame()"
-                        ${state.currentPlayers.team1.length > 0 && state.currentPlayers.team2.length > 0 ? '' : 'disabled'}>
-                        讛转讞诇! 馃幃
-                    </button>
-                </div>
-            `;
+            var team1Players = '';
+            state.team1.players.forEach(function(p) {
+                var played = state.playedPlayers.team1.includes(p) ? 'played' : '';
+                var selected = state.currentPlayers.team1.includes(p) ? 'selected' : '';
+                team1Players += '<div class="player-selection-item ' + played + ' ' + selected + '" ' +
+                    'onclick="selectPlayer(\'team1\', \'' + p + '\')">' + p + '</div>';
+            });
+
+            var team2Players = '';
+            state.team2.players.forEach(function(p) {
+                var played = state.playedPlayers.team2.includes(p) ? 'played' : '';
+                var selected = state.currentPlayers.team2.includes(p) ? 'selected' : '';
+                team2Players += '<div class="player-selection-item ' + played + ' ' + selected + '" ' +
+                    'onclick="selectPlayer(\'team2\', \'' + p + '\')">' + p + '</div>';
+            });
+
+            var canStart = state.currentPlayers.team1.length > 0 && state.currentPlayers.team2.length > 0;
+
+            return '<div class="player-selection">' +
+                '<div class="player-selection-game">' + game.icon + '</div>' +
+                '<div class="player-selection-title">' + game.title + '</div>' +
+                '<p style="color: var(--text-muted); margin-bottom: 20px;">' +
+                    (isTeamGame ? 'Team game - all players participate' : 'Select one player from each team') +
+                '</p>' +
+                '<div class="player-selection-teams">' +
+                    '<div class="player-selection-team team1">' +
+                        '<div class="player-selection-team-title">' + state.team1.name + '</div>' +
+                        '<div class="player-selection-list">' + team1Players + '</div>' +
+                    '</div>' +
+                    '<div class="player-selection-team team2">' +
+                        '<div class="player-selection-team-title">' + state.team2.name + '</div>' +
+                        '<div class="player-selection-list">' + team2Players + '</div>' +
+                    '</div>' +
+                '</div>' +
+                '<button class="start-game-btn" onclick="startGame()" ' + (canStart ? '' : 'disabled') + '>Start!</button>' +
+            '</div>';
         }
 
         function renderPlaying() {
             const game = state.currentGame;
-            let timerHtml = '';
+            var timerHtml = '';
 
             if (game.hasTimer) {
-                timerHtml = `
-                    <div class="playing-timer">
-                        <div class="playing-timer-display">${formatTime(state.timer.seconds)}</div>
-                        <div class="playing-timer-controls">
-                            ${state.timer.running
-                                ? '<button class="timer-btn stop" onclick="timerStop()">注爪讜专</button>'
-                                : '<button class="timer-btn start" onclick="timerStart()">讛转讞诇</button>'
-                            }
-                            <button class="timer-btn" onclick="timerReset()">讗讬驻讜住</button>
-                        </div>
-                    </div>
-                `;
+                timerHtml = '<div class="playing-timer">' +
+                    '<div class="playing-timer-display">' + formatTime(state.timer.seconds) + '</div>' +
+                    '<div class="playing-timer-controls">' +
+                        (state.timer.running
+                            ? '<button class="timer-btn stop" onclick="timerStop()">Stop</button>'
+                            : '<button class="timer-btn start" onclick="timerStart()">Start</button>'
+                        ) +
+                        '<button class="timer-btn" onclick="timerReset()">Reset</button>' +
+                    '</div>' +
+                '</div>';
             }
 
-            return `
-                <div class="playing-view">
-                    <div class="playing-game-name">${game.icon} ${game.title}</div>
-                    ${timerHtml}
-                    <div class="playing-scores">
-                        <div class="playing-score-card team1">
-                            <div class="playing-score-team">${state.team1.name}</div>
-                            <div class="playing-score-value">${state.gameScores.team1}</div>
-                            <div class="playing-score-controls">
-                                <button class="score-btn" onclick="updateScore('team1', -1)">-</button>
-                                <button class="score-btn" onclick="updateScore('team1', 1)">+</button>
-                            </div>
-                        </div>
-                        <div class="playing-score-card team2">
-                            <div class="playing-score-team">${state.team2.name}</div>
-                            <div class="playing-score-value">${state.gameScores.team2}</div>
-                            <div class="playing-score-controls">
-                                <button class="score-btn" onclick="updateScore('team2', -1)">-</button>
-                                <button class="score-btn" onclick="updateScore('team2', 1)">+</button>
-                            </div>
-                        </div>
-                    </div>
-                    <button class="finish-game-btn" onclick="finishGame()">住讬讜诐 诪砖讞拽 馃弫</button>
-                </div>
-            `;
+            return '<div class="playing-view">' +
+                '<div class="playing-game-name">' + game.icon + ' ' + game.title + '</div>' +
+                timerHtml +
+                '<div class="playing-scores">' +
+                    '<div class="playing-score-card team1">' +
+                        '<div class="playing-score-team">' + state.team1.name + '</div>' +
+                        '<div class="playing-score-value">' + state.gameScores.team1 + '</div>' +
+                        '<div class="playing-score-controls">' +
+                            '<button class="score-btn" onclick="updateScore(\'team1\', -1)">-</button>' +
+                            '<button class="score-btn" onclick="updateScore(\'team1\', 1)">+</button>' +
+                        '</div>' +
+                    '</div>' +
+                    '<div class="playing-score-card team2">' +
+                        '<div class="playing-score-team">' + state.team2.name + '</div>' +
+                        '<div class="playing-score-value">' + state.gameScores.team2 + '</div>' +
+                        '<div class="playing-score-controls">' +
+                            '<button class="score-btn" onclick="updateScore(\'team2\', -1)">-</button>' +
+                            '<button class="score-btn" onclick="updateScore(\'team2\', 1)">+</button>' +
+                        '</div>' +
+                    '</div>' +
+                '</div>' +
+                '<button class="finish-game-btn" onclick="finishGame()">Finish Game</button>' +
+            '</div>';
         }
 
         function renderWinner() {
-            let winnerName = state.winner === 'tie' ? '转讬拽讜!' : state[state.winner].name + ' 谞讬爪讞讛!';
-            return `
-                <div class="winner-view">
-                    <div class="winner-trophy">馃弳</div>
-                    <div class="winner-text ${state.winner}">${winnerName}</div>
-                    <button class="next-game-btn" onclick="backToSelection()">诇诪砖讞拽 讛讘讗 鉃★笍</button>
-                </div>
-            `;
+            var winnerName = state.winner === 'tie' ? 'Tie!' : state[state.winner].name + ' Wins!';
+            return '<div class="winner-view">' +
+                '<div class="winner-trophy">TROPHY</div>' +
+                '<div class="winner-text ' + state.winner + '">' + winnerName + '</div>' +
+                '<button class="next-game-btn" onclick="backToSelection()">Next Game</button>' +
+            '</div>';
         }
 
         function renderFinal() {
-            let finalWinnerName = state.winner === 'tie' ? '转讬拽讜!' : state[state.winner].name + ' 讛诪谞爪讞转!';
-            return `
-                <div class="final-view">
-                    <div class="final-crown">馃憫</div>
-                    <div class="final-title">讛诪谞爪讞讬诐 砖诇 Novi God Olympics!</div>
-                    <div class="final-winner ${state.winner}">${finalWinnerName}</div>
-                    <div class="final-scores">
-                        <div class="final-score team1">
-                            <div class="final-score-value">${state.team1.score}</div>
-                            <div>${state.team1.name}</div>
-                        </div>
-                        <div class="final-score team2">
-                            <div class="final-score-value">${state.team2.score}</div>
-                            <div>${state.team2.name}</div>
-                        </div>
-                    </div>
-                </div>
-            `;
+            var finalWinnerName = state.winner === 'tie' ? 'Tie!' : state[state.winner].name + ' Wins!';
+            return '<div class="final-view">' +
+                '<div class="final-crown">CROWN</div>' +
+                '<div class="final-title">Novi God Olympics Champions!</div>' +
+                '<div class="final-winner ' + state.winner + '">' + finalWinnerName + '</div>' +
+                '<div class="final-scores">' +
+                    '<div class="final-score team1">' +
+                        '<div class="final-score-value">' + state.team1.score + '</div>' +
+                        '<div>' + state.team1.name + '</div>' +
+                    '</div>' +
+                    '<div class="final-score team2">' +
+                        '<div class="final-score-value">' + state.team2.score + '</div>' +
+                        '<div>' + state.team2.name + '</div>' +
+                    '</div>' +
+                '</div>' +
+            '</div>';
         }
 
         // Action functions
         function updateTeamName(team, name) {
-            sendMessage({ type: 'update-team-name', team, name });
+            sendMessage({ type: 'update-team-name', team: team, name: name });
         }
 
         function addPlayer(team) {
-            const input = document.getElementById(`new-player-${team}`);
+            const input = document.getElementById('new-player-' + team);
             const name = input.value.trim();
             if (name) {
-                sendMessage({ type: 'add-player', team, player: name });
+                sendMessage({ type: 'add-player', team: team, player: name });
                 input.value = '';
             }
         }
 
         function removePlayer(team, index) {
-            sendMessage({ type: 'remove-player', team, index });
+            sendMessage({ type: 'remove-player', team: team, index: index });
         }
 
         function startGames() {
@@ -1935,12 +1906,12 @@
 
         function selectGame(gameId) {
             if (!state.completedGames.includes(gameId)) {
-                sendMessage({ type: 'select-game', gameId });
+                sendMessage({ type: 'select-game', gameId: gameId });
             }
         }
 
         function selectPlayer(team, player) {
-            sendMessage({ type: 'select-player', team, player });
+            sendMessage({ type: 'select-player', team: team, player: player });
         }
 
         function startGame() {
@@ -1948,7 +1919,7 @@
         }
 
         function updateScore(team, delta) {
-            sendMessage({ type: 'update-score', team, delta });
+            sendMessage({ type: 'update-score', team: team, delta: delta });
         }
 
         function timerStart() {
@@ -1978,9 +1949,9 @@
         // Create snowflakes
         function createSnowflakes() {
             const container = document.getElementById('snowflakes');
-            const snowflakeChars = ['鉂?, '鉂?, '鉂?, '鉁?, '鉁?];
+            const snowflakeChars = ['*', '+', '.', 'o', '*'];
 
-            for (let i = 0; i < 50; i++) {
+            for (var i = 0; i < 50; i++) {
                 const snowflake = document.createElement('div');
                 snowflake.className = 'snowflake';
                 snowflake.textContent = snowflakeChars[Math.floor(Math.random() * snowflakeChars.length)];
@@ -1999,7 +1970,7 @@
             container.innerHTML = '';
             const colors = ['#e63946', '#40916c', '#ffd700', '#ffffff', '#ff6b6b', '#4ecdc4'];
 
-            for (let i = 0; i < 100; i++) {
+            for (var i = 0; i < 100; i++) {
                 const confetti = document.createElement('div');
                 confetti.className = 'confetti';
                 confetti.style.left = Math.random() * 100 + '%';
