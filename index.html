@@ -2,36 +2,40 @@
 <html lang="he" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>אולימפיידת נובי גוד 🎄</title>
-    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700;900&family=Secular+One&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>馃巹 Novi God Olympics 馃巹</title>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&family=Secular+One&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/peerjs@1.5.2/dist/peerjs.min.js"></script>
     <style>
-        :root {
-            --red: #e63946;
-            --red-dark: #b82d39;
-            --red-light: #ff6b6b;
-            --green: #2d6a4f;
-            --green-dark: #1b4332;
-            --green-light: #40916c;
-            --gold: #ffd700;
-            --gold-dark: #b8860b;
-            --snow: #f8f9fa;
-            --night: #1a1a2e;
-            --night-light: #16213e;
-        }
-
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
+        :root {
+            --red-team: #e63946;
+            --red-team-dark: #b82d38;
+            --green-team: #40916c;
+            --green-team-dark: #2d6a4f;
+            --gold: #ffd700;
+            --gold-dark: #b8860b;
+            --bg-dark: #0a1628;
+            --bg-light: #1a2a4a;
+            --text-light: #ffffff;
+            --text-muted: #a0aec0;
+        }
+
         body {
             font-family: 'Rubik', sans-serif;
-            background: linear-gradient(135deg, var(--night) 0%, var(--night-light) 50%, #0f3460 100%);
+            background: linear-gradient(135deg, var(--bg-dark) 0%, var(--bg-light) 100%);
             min-height: 100vh;
-            color: var(--snow);
+            color: var(--text-light);
             overflow-x: hidden;
+        }
+
+        h1, h2, h3, .title {
+            font-family: 'Secular One', sans-serif;
         }
 
         /* Snowflakes */
@@ -48,379 +52,352 @@
 
         .snowflake {
             position: absolute;
-            top: -10px;
-            color: white;
-            font-size: 1.5rem;
-            opacity: 0.8;
+            top: -20px;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1rem;
             animation: fall linear infinite;
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
         }
 
         @keyframes fall {
-            to {
+            0% {
+                transform: translateY(-20px) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
                 transform: translateY(100vh) rotate(360deg);
+                opacity: 0.3;
             }
         }
 
-        /* Screen container */
-        .screen {
+        /* Confetti */
+        .confetti-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 999;
             display: none;
-            min-height: 100vh;
-            padding: 2rem;
-            animation: fadeIn 0.5s ease-out;
         }
 
-        .screen.active {
+        .confetti-container.active {
+            display: block;
+        }
+
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            animation: confetti-fall linear infinite;
+        }
+
+        @keyframes confetti-fall {
+            0% {
+                transform: translateY(-20px) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        /* Mode Selection */
+        .mode-selection {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
+            text-align: center;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+        .mode-selection h1 {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            color: var(--gold);
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
         }
 
-        /* Opening Screen */
-        #opening-screen {
-            background: radial-gradient(ellipse at center, rgba(255,215,0,0.1) 0%, transparent 70%);
+        .mode-selection .subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 40px;
+            color: var(--text-muted);
         }
 
-        .main-title {
+        .mode-buttons {
+            display: flex;
+            gap: 30px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .mode-btn {
+            background: linear-gradient(145deg, var(--bg-light), var(--bg-dark));
+            border: 3px solid var(--gold);
+            border-radius: 20px;
+            padding: 40px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            min-width: 200px;
+        }
+
+        .mode-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.3);
+        }
+
+        .mode-btn .icon {
+            font-size: 4rem;
+            display: block;
+            margin-bottom: 15px;
+        }
+
+        .mode-btn .label {
+            font-family: 'Secular One', sans-serif;
+            font-size: 1.5rem;
+            color: var(--text-light);
+        }
+
+        /* Connection Screen */
+        .connection-screen {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .room-code {
             font-family: 'Secular One', sans-serif;
             font-size: 5rem;
-            text-align: center;
-            background: linear-gradient(45deg, var(--gold), #fff5cc, var(--gold));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            text-shadow: 0 0 60px rgba(255,215,0,0.5);
-            animation: glow 2s ease-in-out infinite alternate;
-            margin-bottom: 1rem;
+            color: var(--gold);
+            letter-spacing: 15px;
+            margin: 30px 0;
+            text-shadow: 0 0 30px rgba(255, 215, 0, 0.5);
         }
 
-        @keyframes glow {
-            from { filter: drop-shadow(0 0 20px rgba(255,215,0,0.5)); }
-            to { filter: drop-shadow(0 0 40px rgba(255,215,0,0.8)); }
+        .connection-status {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            margin-top: 20px;
         }
 
-        .subtitle {
+        .connection-status.connected {
+            color: var(--green-team);
+        }
+
+        .code-input {
+            display: flex;
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        .code-input input {
+            width: 60px;
+            height: 70px;
             font-size: 2rem;
-            color: var(--snow);
-            opacity: 0.9;
-            margin-bottom: 3rem;
+            text-align: center;
+            border: 3px solid var(--gold);
+            border-radius: 10px;
+            background: var(--bg-dark);
+            color: var(--text-light);
+            font-family: 'Secular One', sans-serif;
+            text-transform: uppercase;
         }
 
-        .year-badge {
-            font-size: 8rem;
-            font-weight: 900;
-            background: linear-gradient(180deg, var(--gold) 0%, var(--gold-dark) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 2rem;
-            animation: pulse 2s ease-in-out infinite;
+        .connect-btn {
+            background: linear-gradient(145deg, var(--gold), var(--gold-dark));
+            border: none;
+            border-radius: 15px;
+            padding: 15px 40px;
+            font-size: 1.3rem;
+            font-family: 'Secular One', sans-serif;
+            color: var(--bg-dark);
+            cursor: pointer;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .connect-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 20px rgba(255, 215, 0, 0.5);
+        }
+
+        /* TV Display */
+        .tv-display {
+            display: none;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .tv-header {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 60px;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 20px;
+            margin-bottom: 20px;
+        }
+
+        .tv-team-score {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .tv-team-score.team1 {
+            flex-direction: row-reverse;
+        }
+
+        .tv-team-name {
+            font-family: 'Secular One', sans-serif;
+            font-size: 2rem;
+        }
+
+        .team1 .tv-team-name {
+            color: var(--red-team);
+        }
+
+        .team2 .tv-team-name {
+            color: var(--green-team);
+        }
+
+        .tv-score {
+            font-family: 'Secular One', sans-serif;
+            font-size: 4rem;
+            width: 100px;
+            text-align: center;
+        }
+
+        .team1 .tv-score {
+            color: var(--red-team);
+            text-shadow: 0 0 20px rgba(230, 57, 70, 0.5);
+        }
+
+        .team2 .tv-score {
+            color: var(--green-team);
+            text-shadow: 0 0 20px rgba(64, 145, 108, 0.5);
+        }
+
+        .tv-vs {
+            font-family: 'Secular One', sans-serif;
+            font-size: 2rem;
+            color: var(--gold);
+        }
+
+        .tv-main {
+            display: flex;
+            gap: 20px;
+            height: calc(100vh - 180px);
+        }
+
+        .tv-team-panel {
+            flex: 1;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 20px;
+            padding: 20px;
+            max-width: 300px;
+        }
+
+        .tv-team-panel.team1 {
+            border: 3px solid var(--red-team);
+        }
+
+        .tv-team-panel.team2 {
+            border: 3px solid var(--green-team);
+        }
+
+        .tv-panel-title {
+            font-family: 'Secular One', sans-serif;
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .team1 .tv-panel-title {
+            color: var(--red-team);
+        }
+
+        .team2 .tv-panel-title {
+            color: var(--green-team);
+        }
+
+        .tv-player-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .tv-player {
+            padding: 10px 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 1.1rem;
+        }
+
+        .tv-player.played {
+            opacity: 0.5;
+        }
+
+        .tv-player.playing {
+            animation: pulse 1s infinite;
+        }
+
+        .team1 .tv-player.playing {
+            background: rgba(230, 57, 70, 0.3);
+            border: 2px solid var(--red-team);
+        }
+
+        .team2 .tv-player.playing {
+            background: rgba(64, 145, 108, 0.3);
+            border: 2px solid var(--green-team);
         }
 
         @keyframes pulse {
             0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
+            50% { transform: scale(1.02); }
         }
 
-        .btn {
-            padding: 1.2rem 3rem;
-            font-size: 1.5rem;
-            font-family: 'Rubik', sans-serif;
-            font-weight: 700;
-            border: none;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            display: inline-block;
-        }
-
-        .btn-gold {
-            background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
-            color: var(--night);
-            box-shadow: 0 10px 40px rgba(255,215,0,0.3);
-        }
-
-        .btn-gold:hover {
-            transform: translateY(-5px) scale(1.05);
-            box-shadow: 0 20px 60px rgba(255,215,0,0.5);
-        }
-
-        .btn-red {
-            background: linear-gradient(135deg, var(--red) 0%, var(--red-dark) 100%);
-            color: white;
-            box-shadow: 0 10px 40px rgba(230,57,70,0.3);
-        }
-
-        .btn-green {
-            background: linear-gradient(135deg, var(--green-light) 0%, var(--green) 100%);
-            color: white;
-            box-shadow: 0 10px 40px rgba(45,106,79,0.3);
-        }
-
-        .btn:hover {
-            transform: translateY(-5px) scale(1.05);
-        }
-
-        /* Team Registration Screen */
-        #registration-screen {
-            gap: 2rem;
-        }
-
-        .registration-title {
-            font-family: 'Secular One', sans-serif;
-            font-size: 3rem;
-            margin-bottom: 1rem;
-        }
-
-        .teams-container {
-            display: flex;
-            gap: 4rem;
-            width: 100%;
-            max-width: 1200px;
-            justify-content: center;
-        }
-
-        .team-card {
-            background: rgba(255,255,255,0.05);
-            backdrop-filter: blur(10px);
-            border-radius: 30px;
-            padding: 2rem;
-            width: 400px;
-            border: 3px solid;
-            transition: all 0.3s ease;
-        }
-
-        .team-card.red {
-            border-color: var(--red);
-            box-shadow: 0 0 40px rgba(230,57,70,0.2);
-        }
-
-        .team-card.green {
-            border-color: var(--green-light);
-            box-shadow: 0 0 40px rgba(64,145,108,0.2);
-        }
-
-        .team-name-input {
-            width: 100%;
-            padding: 1rem;
-            font-size: 1.5rem;
-            font-family: 'Secular One', sans-serif;
-            text-align: center;
-            border: none;
-            border-radius: 15px;
-            margin-bottom: 1.5rem;
-            background: rgba(255,255,255,0.1);
-            color: white;
-        }
-
-        .team-name-input::placeholder {
-            color: rgba(255,255,255,0.5);
-        }
-
-        .team-name-input.red:focus {
-            outline: 3px solid var(--red);
-        }
-
-        .team-name-input.green:focus {
-            outline: 3px solid var(--green-light);
-        }
-
-        .player-list {
-            list-style: none;
-            margin-bottom: 1rem;
-        }
-
-        .player-item {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.5rem;
-            margin-bottom: 0.5rem;
-            background: rgba(255,255,255,0.05);
-            border-radius: 10px;
-        }
-
-        .player-item span {
-            flex: 1;
-        }
-
-        .player-item .played-badge {
+        .player-badge {
             font-size: 0.8rem;
-            padding: 0.2rem 0.5rem;
-            background: rgba(255,215,0,0.3);
-            border-radius: 5px;
-            color: var(--gold);
-        }
-
-        .player-item button {
-            background: rgba(255,0,0,0.3);
-            border: none;
-            color: white;
-            width: 25px;
-            height: 25px;
-            border-radius: 50%;
-            cursor: pointer;
-            font-size: 0.8rem;
-        }
-
-        .add-player-form {
-            display: flex;
-            gap: 0.5rem;
-        }
-
-        .add-player-input {
-            flex: 1;
-            padding: 0.8rem;
-            font-size: 1rem;
-            font-family: 'Rubik', sans-serif;
-            border: none;
+            padding: 2px 8px;
             border-radius: 10px;
-            background: rgba(255,255,255,0.1);
-            color: white;
-        }
-
-        .add-player-btn {
-            padding: 0.8rem 1.2rem;
-            font-size: 1.5rem;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
             background: var(--gold);
-            color: var(--night);
+            color: var(--bg-dark);
         }
 
-        /* Game Selection Screen */
-        #game-selection-screen {
-            padding: 1rem;
-        }
-
-        .scoreboard-header {
+        .tv-center {
+            flex: 2;
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            width: 100%;
-            max-width: 1200px;
-            margin-bottom: 2rem;
-            padding: 1.5rem 2rem;
-            background: rgba(0,0,0,0.3);
-            border-radius: 20px;
-        }
-
-        .team-score {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .team-score-name {
-            font-family: 'Secular One', sans-serif;
-            font-size: 1.8rem;
-        }
-
-        .team-score-points {
-            font-size: 3rem;
-            font-weight: 900;
-        }
-
-        .team-score.red .team-score-points {
-            color: var(--red-light);
-        }
-
-        .team-score.green .team-score-points {
-            color: var(--green-light);
-        }
-
-        .vs-text {
-            font-size: 1.5rem;
-            opacity: 0.5;
-        }
-
-        .games-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 1.5rem;
-            width: 100%;
-            max-width: 1200px;
-        }
-
-        .game-card {
-            background: rgba(255,255,255,0.05);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            padding: 1.5rem;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            border: 2px solid transparent;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .game-card:hover {
-            transform: translateY(-10px);
-            border-color: var(--gold);
-            box-shadow: 0 20px 40px rgba(255,215,0,0.2);
-        }
-
-        .game-card.completed {
-            opacity: 0.5;
-        }
-
-        .game-card.completed::after {
-            content: '✓';
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            background: var(--gold);
-            color: var(--night);
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
-            font-weight: bold;
-        }
-
-        .game-icon {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-        }
-
-        .game-title {
-            font-family: 'Secular One', sans-serif;
-            font-size: 1.2rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .game-type {
-            font-size: 0.8rem;
-            opacity: 0.7;
-            padding: 0.3rem 0.8rem;
-            background: rgba(255,255,255,0.1);
+            background: rgba(0, 0, 0, 0.3);
             border-radius: 20px;
-            display: inline-block;
+            padding: 40px;
         }
 
-        .finish-btn-container {
-            margin-top: 2rem;
-        }
-
-        /* Game Intro Screen */
-        #game-intro-screen {
+        .tv-phase-text {
+            font-size: 2rem;
+            color: var(--text-muted);
             text-align: center;
         }
 
-        .game-intro-icon {
+        .tv-game-icon {
             font-size: 8rem;
-            margin-bottom: 2rem;
-            animation: bounce 1s ease-in-out infinite;
+            margin-bottom: 20px;
+            animation: bounce 2s infinite;
         }
 
         @keyframes bounce {
@@ -428,399 +405,742 @@
             50% { transform: translateY(-20px); }
         }
 
-        .game-intro-title {
+        .tv-game-title {
             font-family: 'Secular One', sans-serif;
-            font-size: 4rem;
-            background: linear-gradient(45deg, var(--gold), #fff5cc);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 1.5rem;
-        }
-
-        .game-intro-description {
-            font-size: 1.5rem;
-            max-width: 800px;
-            line-height: 1.8;
-            margin-bottom: 1rem;
-            opacity: 0.9;
-        }
-
-        .game-intro-materials {
-            font-size: 1.2rem;
+            font-size: 3rem;
             color: var(--gold);
-            margin-bottom: 2rem;
+            text-align: center;
+            margin-bottom: 10px;
         }
 
-        .game-intro-type {
-            display: inline-block;
-            padding: 0.5rem 1.5rem;
-            background: rgba(255,255,255,0.1);
-            border-radius: 30px;
-            margin-bottom: 2rem;
+        .tv-game-desc {
+            font-size: 1.3rem;
+            color: var(--text-muted);
+            text-align: center;
+            margin-bottom: 30px;
         }
 
-        /* Player Selection Screen */
-        #player-selection-screen {
+        .tv-timer {
+            font-family: 'Secular One', sans-serif;
+            font-size: 5rem;
+            color: var(--gold);
+            margin: 20px 0;
+        }
+
+        .tv-game-scores {
+            display: flex;
+            gap: 60px;
+            margin-top: 30px;
+        }
+
+        .tv-game-score {
             text-align: center;
         }
 
-        .selection-title {
+        .tv-game-score-value {
             font-family: 'Secular One', sans-serif;
-            font-size: 2.5rem;
-            margin-bottom: 2rem;
+            font-size: 8rem;
         }
 
-        .selection-teams {
-            display: flex;
-            gap: 4rem;
-            margin-bottom: 2rem;
+        .team1 .tv-game-score-value {
+            color: var(--red-team);
         }
 
-        .selection-team {
-            background: rgba(255,255,255,0.05);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            padding: 2rem;
-            min-width: 300px;
+        .team2 .tv-game-score-value {
+            color: var(--green-team);
         }
 
-        .selection-team.red {
-            border: 3px solid var(--red);
-        }
-
-        .selection-team.green {
-            border: 3px solid var(--green-light);
-        }
-
-        .selection-team-name {
-            font-family: 'Secular One', sans-serif;
-            font-size: 1.8rem;
-            margin-bottom: 1rem;
-        }
-
-        .selection-team.red .selection-team-name {
-            color: var(--red-light);
-        }
-
-        .selection-team.green .selection-team-name {
-            color: var(--green-light);
-        }
-
-        .player-select-btn {
-            display: block;
-            width: 100%;
-            padding: 1rem;
-            margin-bottom: 0.5rem;
+        .tv-game-score-label {
             font-size: 1.2rem;
-            font-family: 'Rubik', sans-serif;
-            border: 2px solid transparent;
+            color: var(--text-muted);
+        }
+
+        /* Winner Display */
+        .tv-winner {
+            text-align: center;
+        }
+
+        .tv-winner-trophy {
+            font-size: 10rem;
+            animation: trophy-bounce 1s infinite;
+        }
+
+        @keyframes trophy-bounce {
+            0%, 100% { transform: scale(1) rotate(-5deg); }
+            50% { transform: scale(1.1) rotate(5deg); }
+        }
+
+        .tv-winner-text {
+            font-family: 'Secular One', sans-serif;
+            font-size: 4rem;
+            margin-top: 20px;
+        }
+
+        .tv-winner-text.team1 {
+            color: var(--red-team);
+        }
+
+        .tv-winner-text.team2 {
+            color: var(--green-team);
+        }
+
+        .tv-winner-text.tie {
+            color: var(--gold);
+        }
+
+        /* Final Display */
+        .tv-final {
+            text-align: center;
+        }
+
+        .tv-final-crown {
+            font-size: 12rem;
+            animation: crown-glow 2s infinite;
+        }
+
+        @keyframes crown-glow {
+            0%, 100% {
+                filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.5));
+                transform: scale(1);
+            }
+            50% {
+                filter: drop-shadow(0 0 40px rgba(255, 215, 0, 0.8));
+                transform: scale(1.05);
+            }
+        }
+
+        .tv-final-title {
+            font-family: 'Secular One', sans-serif;
+            font-size: 3rem;
+            color: var(--gold);
+            margin-bottom: 20px;
+        }
+
+        .tv-final-winner {
+            font-family: 'Secular One', sans-serif;
+            font-size: 5rem;
+        }
+
+        .tv-final-winner.team1 {
+            color: var(--red-team);
+        }
+
+        .tv-final-winner.team2 {
+            color: var(--green-team);
+        }
+
+        .tv-final-winner.tie {
+            color: var(--gold);
+        }
+
+        .tv-final-scores {
+            display: flex;
+            justify-content: center;
+            gap: 100px;
+            margin-top: 40px;
+        }
+
+        .tv-final-score {
+            text-align: center;
+        }
+
+        .tv-final-score-value {
+            font-family: 'Secular One', sans-serif;
+            font-size: 6rem;
+        }
+
+        .team1 .tv-final-score-value {
+            color: var(--red-team);
+        }
+
+        .team2 .tv-final-score-value {
+            color: var(--green-team);
+        }
+
+        /* Remote Control */
+        .remote-control {
+            display: none;
+            min-height: 100vh;
+            padding: 10px;
+            padding-bottom: 100px;
+        }
+
+        .remote-header {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            padding: 15px;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .remote-title {
+            font-family: 'Secular One', sans-serif;
+            font-size: 1.5rem;
+            color: var(--gold);
+        }
+
+        .remote-status {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-top: 5px;
+        }
+
+        .remote-status.connected {
+            color: var(--green-team);
+        }
+
+        .remote-scorebar {
+            display: flex;
+            justify-content: space-around;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+
+        .remote-team-mini {
+            text-align: center;
+        }
+
+        .remote-team-mini-name {
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+        }
+
+        .remote-team-mini-score {
+            font-family: 'Secular One', sans-serif;
+            font-size: 2rem;
+        }
+
+        .team1 .remote-team-mini-name,
+        .team1 .remote-team-mini-score {
+            color: var(--red-team);
+        }
+
+        .team2 .remote-team-mini-name,
+        .team2 .remote-team-mini-score {
+            color: var(--green-team);
+        }
+
+        .remote-content {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            padding: 20px;
+        }
+
+        /* Registration */
+        .registration-teams {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .registration-team {
+            border-radius: 15px;
+            padding: 15px;
+        }
+
+        .registration-team.team1 {
+            background: rgba(230, 57, 70, 0.2);
+            border: 2px solid var(--red-team);
+        }
+
+        .registration-team.team2 {
+            background: rgba(64, 145, 108, 0.2);
+            border: 2px solid var(--green-team);
+        }
+
+        .registration-team-header {
+            margin-bottom: 15px;
+        }
+
+        .registration-team-name-input {
+            width: 100%;
+            padding: 10px;
+            font-size: 1.2rem;
+            font-family: 'Secular One', sans-serif;
+            border: none;
             border-radius: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text-light);
+            text-align: center;
+        }
+
+        .team1 .registration-team-name-input {
+            color: var(--red-team);
+        }
+
+        .team2 .registration-team-name-input {
+            color: var(--green-team);
+        }
+
+        .registration-player-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 15px;
+            min-height: 40px;
+        }
+
+        .registration-player {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            padding: 5px 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+
+        .registration-player-remove {
             cursor: pointer;
-            transition: all 0.3s ease;
-            background: rgba(255,255,255,0.1);
+            opacity: 0.7;
+            font-size: 1.1rem;
+        }
+
+        .registration-add-player {
+            display: flex;
+            gap: 10px;
+        }
+
+        .registration-add-player input {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text-light);
+            font-size: 1rem;
+        }
+
+        .registration-add-player button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+
+        .team1 .registration-add-player button {
+            background: var(--red-team);
             color: white;
         }
 
-        .player-select-btn:hover {
-            background: rgba(255,255,255,0.2);
+        .team2 .registration-add-player button {
+            background: var(--green-team);
+            color: white;
         }
 
-        .player-select-btn.selected {
-            border-color: var(--gold);
-            background: rgba(255,215,0,0.2);
-        }
-
-        .player-select-btn.played {
-            opacity: 0.5;
-            position: relative;
-        }
-
-        .player-select-btn.played::after {
-            content: ' (שיחק/ה)';
-            font-size: 0.8rem;
-            opacity: 0.7;
-        }
-
-        /* Game Play Screen */
-        #game-play-screen {
-            text-align: center;
-        }
-
-        .game-play-title {
+        .start-games-btn {
+            width: 100%;
+            padding: 20px;
+            margin-top: 20px;
+            font-size: 1.5rem;
             font-family: 'Secular One', sans-serif;
-            font-size: 2.5rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .game-play-players {
-            font-size: 1.3rem;
-            opacity: 0.8;
-            margin-bottom: 2rem;
-        }
-
-        .game-scores {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 4rem;
-            margin-bottom: 2rem;
-        }
-
-        .game-team-score {
-            text-align: center;
-        }
-
-        .game-team-name {
-            font-family: 'Secular One', sans-serif;
-            font-size: 2rem;
-            margin-bottom: 1rem;
-        }
-
-        .game-team-score.red .game-team-name {
-            color: var(--red-light);
-        }
-
-        .game-team-score.green .game-team-name {
-            color: var(--green-light);
-        }
-
-        .score-display {
-            font-size: 8rem;
-            font-weight: 900;
-            line-height: 1;
-        }
-
-        .game-team-score.red .score-display {
-            color: var(--red);
-            text-shadow: 0 0 40px rgba(230,57,70,0.5);
-        }
-
-        .game-team-score.green .score-display {
-            color: var(--green-light);
-            text-shadow: 0 0 40px rgba(64,145,108,0.5);
-        }
-
-        .score-buttons {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            margin-top: 1rem;
-        }
-
-        .score-btn {
-            width: 60px;
-            height: 60px;
-            font-size: 2rem;
+            background: linear-gradient(145deg, var(--gold), var(--gold-dark));
             border: none;
-            border-radius: 50%;
+            border-radius: 15px;
+            color: var(--bg-dark);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .start-games-btn:hover {
+            transform: scale(1.02);
+            box-shadow: 0 5px 20px rgba(255, 215, 0, 0.5);
+        }
+
+        .start-games-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Game Selection */
+        .game-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        .game-card {
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid transparent;
+            border-radius: 15px;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .game-card:hover {
+            border-color: var(--gold);
+            transform: translateY(-3px);
+        }
+
+        .game-card.completed {
+            opacity: 0.4;
+            pointer-events: none;
+        }
+
+        .game-card-icon {
+            font-size: 3rem;
+            margin-bottom: 10px;
+        }
+
+        .game-card-title {
+            font-family: 'Secular One', sans-serif;
+            font-size: 1rem;
+            color: var(--gold);
+        }
+
+        .finish-olympics-btn {
+            width: 100%;
+            padding: 15px;
+            margin-top: 20px;
+            font-size: 1.2rem;
+            font-family: 'Secular One', sans-serif;
+            background: linear-gradient(145deg, var(--gold), var(--gold-dark));
+            border: none;
+            border-radius: 15px;
+            color: var(--bg-dark);
+            cursor: pointer;
+        }
+
+        /* Player Selection */
+        .player-selection {
+            text-align: center;
+        }
+
+        .player-selection-title {
+            font-family: 'Secular One', sans-serif;
+            font-size: 1.5rem;
+            color: var(--gold);
+            margin-bottom: 5px;
+        }
+
+        .player-selection-game {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+
+        .player-selection-teams {
+            display: flex;
+            gap: 15px;
+        }
+
+        .player-selection-team {
+            flex: 1;
+            border-radius: 15px;
+            padding: 15px;
+        }
+
+        .player-selection-team.team1 {
+            background: rgba(230, 57, 70, 0.2);
+            border: 2px solid var(--red-team);
+        }
+
+        .player-selection-team.team2 {
+            background: rgba(64, 145, 108, 0.2);
+            border: 2px solid var(--green-team);
+        }
+
+        .player-selection-team-title {
+            font-family: 'Secular One', sans-serif;
+            font-size: 1rem;
+            margin-bottom: 10px;
+        }
+
+        .team1 .player-selection-team-title {
+            color: var(--red-team);
+        }
+
+        .team2 .player-selection-team-title {
+            color: var(--green-team);
+        }
+
+        .player-selection-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .player-selection-item {
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
             cursor: pointer;
             transition: all 0.2s ease;
         }
 
-        .score-btn.plus {
-            background: var(--gold);
-            color: var(--night);
+        .player-selection-item.played {
+            opacity: 0.4;
         }
 
-        .score-btn.minus {
-            background: rgba(255,255,255,0.2);
-            color: white;
+        .player-selection-item.selected {
+            font-weight: bold;
         }
 
-        .score-btn:hover {
-            transform: scale(1.1);
+        .team1 .player-selection-item.selected {
+            background: var(--red-team);
         }
 
-        .game-vs {
-            font-size: 3rem;
-            opacity: 0.3;
+        .team2 .player-selection-item.selected {
+            background: var(--green-team);
         }
 
-        /* Timer */
-        .timer-container {
-            margin-bottom: 2rem;
+        .start-game-btn {
+            width: 100%;
+            padding: 15px;
+            margin-top: 20px;
+            font-size: 1.3rem;
+            font-family: 'Secular One', sans-serif;
+            background: linear-gradient(145deg, var(--gold), var(--gold-dark));
+            border: none;
+            border-radius: 15px;
+            color: var(--bg-dark);
+            cursor: pointer;
         }
 
-        .timer-display {
-            font-size: 6rem;
-            font-weight: 900;
-            font-family: 'Rubik', sans-serif;
+        .start-game-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* Playing */
+        .playing-view {
+            text-align: center;
+        }
+
+        .playing-game-name {
+            font-family: 'Secular One', sans-serif;
+            font-size: 1.5rem;
             color: var(--gold);
-            text-shadow: 0 0 40px rgba(255,215,0,0.5);
+            margin-bottom: 20px;
         }
 
-        .timer-buttons {
+        .playing-timer {
+            margin-bottom: 20px;
+        }
+
+        .playing-timer-display {
+            font-family: 'Secular One', sans-serif;
+            font-size: 3rem;
+            color: var(--gold);
+            margin-bottom: 10px;
+        }
+
+        .playing-timer-controls {
             display: flex;
-            gap: 1rem;
             justify-content: center;
-            margin-top: 1rem;
+            gap: 10px;
         }
 
         .timer-btn {
-            padding: 1rem 2rem;
-            font-size: 1.2rem;
-            font-family: 'Rubik', sans-serif;
-            font-weight: 700;
+            padding: 10px 20px;
             border: none;
-            border-radius: 15px;
+            border-radius: 10px;
+            font-size: 1rem;
             cursor: pointer;
-            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.2);
+            color: var(--text-light);
         }
 
         .timer-btn.start {
-            background: var(--green-light);
-            color: white;
+            background: var(--green-team);
         }
 
         .timer-btn.stop {
-            background: var(--red);
-            color: white;
+            background: var(--red-team);
         }
 
-        .timer-btn.reset {
-            background: rgba(255,255,255,0.2);
-            color: white;
-        }
-
-        .game-action-buttons {
+        .playing-scores {
             display: flex;
-            gap: 1rem;
-            margin-top: 2rem;
+            gap: 20px;
+            margin-bottom: 20px;
         }
 
-        /* Winner Screen */
-        #winner-screen {
-            text-align: center;
+        .playing-score-card {
+            flex: 1;
+            border-radius: 15px;
+            padding: 20px;
         }
 
-        .winner-label {
-            font-size: 2rem;
-            opacity: 0.8;
-            margin-bottom: 1rem;
+        .playing-score-card.team1 {
+            background: rgba(230, 57, 70, 0.2);
+            border: 2px solid var(--red-team);
         }
 
-        .winner-name {
+        .playing-score-card.team2 {
+            background: rgba(64, 145, 108, 0.2);
+            border: 2px solid var(--green-team);
+        }
+
+        .playing-score-team {
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+
+        .playing-score-value {
             font-family: 'Secular One', sans-serif;
-            font-size: 5rem;
-            margin-bottom: 2rem;
-            animation: winner-glow 1s ease-in-out infinite alternate;
+            font-size: 4rem;
+            margin-bottom: 15px;
         }
 
-        .winner-name.red {
-            color: var(--red-light);
-            text-shadow: 0 0 60px rgba(230,57,70,0.8);
+        .team1 .playing-score-value {
+            color: var(--red-team);
         }
 
-        .winner-name.green {
-            color: var(--green-light);
-            text-shadow: 0 0 60px rgba(64,145,108,0.8);
+        .team2 .playing-score-value {
+            color: var(--green-team);
         }
 
-        @keyframes winner-glow {
-            from { transform: scale(1); }
-            to { transform: scale(1.05); }
+        .playing-score-controls {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .score-btn {
+            width: 50px;
+            height: 50px;
+            border: none;
+            border-radius: 50%;
+            font-size: 2rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .score-btn:active {
+            transform: scale(0.95);
+        }
+
+        .team1 .score-btn {
+            background: var(--red-team);
+            color: white;
+        }
+
+        .team2 .score-btn {
+            background: var(--green-team);
+            color: white;
+        }
+
+        .finish-game-btn {
+            width: 100%;
+            padding: 15px;
+            font-size: 1.3rem;
+            font-family: 'Secular One', sans-serif;
+            background: linear-gradient(145deg, var(--gold), var(--gold-dark));
+            border: none;
+            border-radius: 15px;
+            color: var(--bg-dark);
+            cursor: pointer;
+        }
+
+        /* Winner View */
+        .winner-view {
+            text-align: center;
+            padding: 40px 20px;
         }
 
         .winner-trophy {
-            font-size: 10rem;
-            margin-bottom: 2rem;
-            animation: trophy-bounce 0.5s ease-in-out infinite alternate;
+            font-size: 6rem;
+            margin-bottom: 20px;
+            animation: trophy-bounce 1s infinite;
         }
 
-        @keyframes trophy-bounce {
-            from { transform: translateY(0) rotate(-5deg); }
-            to { transform: translateY(-20px) rotate(5deg); }
+        .winner-text {
+            font-family: 'Secular One', sans-serif;
+            font-size: 2rem;
+            margin-bottom: 30px;
         }
 
-        /* Final Screen */
-        #final-screen {
+        .winner-text.team1 {
+            color: var(--red-team);
+        }
+
+        .winner-text.team2 {
+            color: var(--green-team);
+        }
+
+        .winner-text.tie {
+            color: var(--gold);
+        }
+
+        .next-game-btn {
+            width: 100%;
+            padding: 15px;
+            font-size: 1.3rem;
+            font-family: 'Secular One', sans-serif;
+            background: linear-gradient(145deg, var(--gold), var(--gold-dark));
+            border: none;
+            border-radius: 15px;
+            color: var(--bg-dark);
+            cursor: pointer;
+        }
+
+        /* Final View */
+        .final-view {
             text-align: center;
+            padding: 40px 20px;
+        }
+
+        .final-crown {
+            font-size: 6rem;
+            margin-bottom: 20px;
+            animation: crown-glow 2s infinite;
         }
 
         .final-title {
             font-family: 'Secular One', sans-serif;
-            font-size: 3rem;
-            margin-bottom: 2rem;
+            font-size: 1.5rem;
+            color: var(--gold);
+            margin-bottom: 10px;
         }
 
         .final-winner {
             font-family: 'Secular One', sans-serif;
-            font-size: 6rem;
-            margin-bottom: 1rem;
-            animation: rainbow 3s linear infinite;
+            font-size: 2.5rem;
+            margin-bottom: 30px;
         }
 
-        @keyframes rainbow {
-            0% { color: var(--red); }
-            25% { color: var(--gold); }
-            50% { color: var(--green-light); }
-            75% { color: var(--gold); }
-            100% { color: var(--red); }
+        .final-winner.team1 {
+            color: var(--red-team);
+        }
+
+        .final-winner.team2 {
+            color: var(--green-team);
+        }
+
+        .final-winner.tie {
+            color: var(--gold);
+        }
+
+        .final-scores {
+            display: flex;
+            justify-content: center;
+            gap: 50px;
         }
 
         .final-score {
+            text-align: center;
+        }
+
+        .final-score-value {
+            font-family: 'Secular One', sans-serif;
             font-size: 4rem;
-            font-weight: 900;
-            margin-bottom: 3rem;
         }
 
-        .confetti {
-            position: fixed;
-            width: 10px;
-            height: 10px;
-            top: -10px;
-            animation: confetti-fall linear forwards;
+        .team1 .final-score-value {
+            color: var(--red-team);
         }
 
-        @keyframes confetti-fall {
-            to {
-                transform: translateY(100vh) rotate(720deg);
-            }
+        .team2 .final-score-value {
+            color: var(--green-team);
         }
 
-        /* Keyboard hints */
-        .keyboard-hints {
-            position: fixed;
-            bottom: 1rem;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            gap: 2rem;
-            background: rgba(0,0,0,0.5);
-            padding: 0.8rem 1.5rem;
-            border-radius: 15px;
-            font-size: 0.9rem;
-            opacity: 0.7;
-            z-index: 100;
-        }
-
-        .key {
-            display: inline-block;
-            padding: 0.3rem 0.6rem;
-            background: rgba(255,255,255,0.2);
-            border-radius: 5px;
-            margin: 0 0.3rem;
-        }
-
-        /* Responsive */
-        @media (max-width: 1024px) {
-            .teams-container, .selection-teams {
-                flex-direction: column;
-                gap: 2rem;
-            }
-
-            .games-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .main-title {
-                font-size: 3rem;
-            }
-
-            .year-badge {
-                font-size: 5rem;
-            }
+        .hidden {
+            display: none !important;
         }
     </style>
 </head>
@@ -828,577 +1148,873 @@
     <!-- Snowflakes -->
     <div class="snowflakes" id="snowflakes"></div>
 
-    <!-- Opening Screen -->
-    <div class="screen active" id="opening-screen">
-        <div class="main-title">🎄 אולימפיידת נובי גוד 🎄</div>
-        <div class="subtitle">מי יהיה האלוף של השנה החדשה?</div>
-        <div class="year-badge">2025</div>
-        <button class="btn btn-gold" onclick="showScreen('registration-screen')">יאללה מתחילים! 🚀</button>
-    </div>
+    <!-- Confetti -->
+    <div class="confetti-container" id="confetti"></div>
 
-    <!-- Registration Screen -->
-    <div class="screen" id="registration-screen">
-        <h1 class="registration-title">הרשמת קבוצות</h1>
-        <div class="teams-container">
-            <div class="team-card red">
-                <input type="text" class="team-name-input red" id="team1-name" placeholder="שם הקבוצה האדומה">
-                <ul class="player-list" id="team1-players"></ul>
-                <div class="add-player-form">
-                    <input type="text" class="add-player-input" id="team1-new-player" placeholder="שם השחקן/ית">
-                    <button class="add-player-btn" onclick="addPlayer(1)">+</button>
-                </div>
+    <!-- Mode Selection -->
+    <div class="mode-selection" id="mode-selection">
+        <h1>馃巹 Novi God Olympics 馃巹</h1>
+        <p class="subtitle">讗讜诇讬诪驻讬讗讚转 讛砖谞讛 讛讞讚砖讛</p>
+        <div class="mode-buttons">
+            <div class="mode-btn" onclick="selectMode('tv')">
+                <span class="icon">馃摵</span>
+                <span class="label">诪住讱 讟诇讜讜讬讝讬讛</span>
             </div>
-            <div class="team-card green">
-                <input type="text" class="team-name-input green" id="team2-name" placeholder="שם הקבוצה הירוקה">
-                <ul class="player-list" id="team2-players"></ul>
-                <div class="add-player-form">
-                    <input type="text" class="add-player-input" id="team2-new-player" placeholder="שם השחקן/ית">
-                    <button class="add-player-btn" onclick="addPlayer(2)">+</button>
-                </div>
+            <div class="mode-btn" onclick="selectMode('remote')">
+                <span class="icon">馃摫</span>
+                <span class="label">砖诇讟 专讞讜拽</span>
             </div>
-        </div>
-        <button class="btn btn-gold" style="margin-top: 2rem;" onclick="startGames()">להתחלת המשחקים! 🎮</button>
-    </div>
-
-    <!-- Game Selection Screen -->
-    <div class="screen" id="game-selection-screen">
-        <div class="scoreboard-header">
-            <div class="team-score red">
-                <span class="team-score-name" id="scoreboard-team1-name">קבוצה אדומה</span>
-                <span class="team-score-points" id="scoreboard-team1-score">0</span>
-            </div>
-            <span class="vs-text">VS</span>
-            <div class="team-score green">
-                <span class="team-score-name" id="scoreboard-team2-name">קבוצה ירוקה</span>
-                <span class="team-score-points" id="scoreboard-team2-score">0</span>
-            </div>
-        </div>
-        <div class="games-grid" id="games-grid"></div>
-        <div class="finish-btn-container">
-            <button class="btn btn-gold" onclick="showFinalResults()">סיום והכרזת מנצח 🏆</button>
         </div>
     </div>
 
-    <!-- Game Intro Screen -->
-    <div class="screen" id="game-intro-screen">
-        <div class="game-intro-icon" id="game-intro-icon">🧻</div>
-        <h1 class="game-intro-title" id="game-intro-title">שם המשחק</h1>
-        <p class="game-intro-description" id="game-intro-description">תיאור המשחק</p>
-        <p class="game-intro-materials" id="game-intro-materials">מצרכים: ...</p>
-        <div class="game-intro-type" id="game-intro-type">משחק יחידים</div>
-        <button class="btn btn-gold" id="game-intro-next-btn" onclick="proceedFromIntro()">בחירת משתתפים ➡️</button>
+    <!-- TV Connection -->
+    <div class="connection-screen" id="tv-connection">
+        <h2>馃摵 诪爪讘 讟诇讜讜讬讝讬讛</h2>
+        <p>拽讜讚 讛讞讚专 砖诇讱:</p>
+        <div class="room-code" id="room-code">----</div>
+        <p class="connection-status" id="tv-status">诪诪转讬谉 诇讞讬讘讜专...</p>
     </div>
 
-    <!-- Player Selection Screen -->
-    <div class="screen" id="player-selection-screen">
-        <h1 class="selection-title">בחרו משתתפים</h1>
-        <div class="selection-teams">
-            <div class="selection-team red">
-                <h2 class="selection-team-name" id="selection-team1-name">קבוצה אדומה</h2>
-                <div id="selection-team1-players"></div>
-            </div>
-            <div class="selection-team green">
-                <h2 class="selection-team-name" id="selection-team2-name">קבוצה ירוקה</h2>
-                <div id="selection-team2-players"></div>
-            </div>
+    <!-- Remote Connection -->
+    <div class="connection-screen" id="remote-connection">
+        <h2>馃摫 砖诇讟 专讞讜拽</h2>
+        <p>讛讻谞住 拽讜讚 讞讚专:</p>
+        <div class="code-input">
+            <input type="text" maxlength="1" id="code-1" oninput="handleCodeInput(this, 1)">
+            <input type="text" maxlength="1" id="code-2" oninput="handleCodeInput(this, 2)">
+            <input type="text" maxlength="1" id="code-3" oninput="handleCodeInput(this, 3)">
+            <input type="text" maxlength="1" id="code-4" oninput="handleCodeInput(this, 4)">
         </div>
-        <button class="btn btn-gold" onclick="startGame()">התחל משחק! 🎯</button>
+        <button class="connect-btn" onclick="connectToTV()">讛转讞讘专</button>
+        <p class="connection-status" id="remote-status"></p>
     </div>
 
-    <!-- Game Play Screen -->
-    <div class="screen" id="game-play-screen">
-        <h1 class="game-play-title" id="game-play-title">שם המשחק</h1>
-        <p class="game-play-players" id="game-play-players">שחקנים: ...</p>
-        
-        <div class="timer-container" id="timer-container" style="display: none;">
-            <div class="timer-display" id="timer-display">00:00</div>
-            <div class="timer-buttons">
-                <button class="timer-btn start" onclick="startTimer()">התחל</button>
-                <button class="timer-btn stop" onclick="stopTimer()">עצור</button>
-                <button class="timer-btn reset" onclick="resetTimer()">איפוס</button>
+    <!-- TV Display -->
+    <div class="tv-display" id="tv-display">
+        <div class="tv-header">
+            <div class="tv-team-score team1">
+                <span class="tv-team-name" id="tv-team1-name">拽讘讜爪讛 讗讚讜诪讛</span>
+                <span class="tv-score" id="tv-team1-score">0</span>
+            </div>
+            <span class="tv-vs">VS</span>
+            <div class="tv-team-score team2">
+                <span class="tv-score" id="tv-team2-score">0</span>
+                <span class="tv-team-name" id="tv-team2-name">拽讘讜爪讛 讬专讜拽讛</span>
             </div>
         </div>
-
-        <div class="game-scores">
-            <div class="game-team-score red">
-                <div class="game-team-name" id="play-team1-name">קבוצה אדומה</div>
-                <div class="score-display" id="play-team1-score">0</div>
-                <div class="score-buttons">
-                    <button class="score-btn minus" onclick="updateGameScore(1, -1)">-</button>
-                    <button class="score-btn plus" onclick="updateGameScore(1, 1)">+</button>
-                </div>
+        <div class="tv-main">
+            <div class="tv-team-panel team1">
+                <div class="tv-panel-title" id="tv-panel-team1-name">拽讘讜爪讛 讗讚讜诪讛</div>
+                <div class="tv-player-list" id="tv-team1-players"></div>
             </div>
-            <div class="game-vs">⚔️</div>
-            <div class="game-team-score green">
-                <div class="game-team-name" id="play-team2-name">קבוצה ירוקה</div>
-                <div class="score-display" id="play-team2-score">0</div>
-                <div class="score-buttons">
-                    <button class="score-btn minus" onclick="updateGameScore(2, -1)">-</button>
-                    <button class="score-btn plus" onclick="updateGameScore(2, 1)">+</button>
-                </div>
+            <div class="tv-center" id="tv-center">
+                <div class="tv-phase-text">诪讜住讬驻讬诐 砖讞拽谞讬诐...</div>
             </div>
-        </div>
-
-        <div class="game-action-buttons">
-            <button class="btn btn-red" onclick="showScreen('game-selection-screen')">ביטול</button>
-            <button class="btn btn-gold" onclick="finishGame()">סיום משחק 🏁</button>
+            <div class="tv-team-panel team2">
+                <div class="tv-panel-title" id="tv-panel-team2-name">拽讘讜爪讛 讬专讜拽讛</div>
+                <div class="tv-player-list" id="tv-team2-players"></div>
+            </div>
         </div>
     </div>
 
-    <!-- Winner Screen -->
-    <div class="screen" id="winner-screen">
-        <div class="winner-label">🎉 המנצחים במשחק הזה 🎉</div>
-        <div class="winner-trophy">🏆</div>
-        <div class="winner-name" id="winner-name">שם הקבוצה</div>
-        <button class="btn btn-gold" onclick="showScreen('game-selection-screen')">למשחק הבא ➡️</button>
-    </div>
-
-    <!-- Final Screen -->
-    <div class="screen" id="final-screen">
-        <div class="final-title">🎊 האלופים של נובי גוד 2025! 🎊</div>
-        <div class="winner-trophy">👑</div>
-        <div class="final-winner" id="final-winner-name">שם הקבוצה</div>
-        <div class="final-score" id="final-score">0 - 0</div>
-        <button class="btn btn-gold" onclick="location.reload()">משחק חדש 🔄</button>
-    </div>
-
-    <!-- Keyboard Hints -->
-    <div class="keyboard-hints" id="keyboard-hints">
-        <span><span class="key">Q</span> / <span class="key">A</span> - ניקוד אדום</span>
-        <span><span class="key">P</span> / <span class="key">L</span> - ניקוד ירוק</span>
-        <span><span class="key">Space</span> - טיימר</span>
-        <span><span class="key">Enter</span> - המשך</span>
-        <span><span class="key">Esc</span> - חזרה</span>
+    <!-- Remote Control -->
+    <div class="remote-control" id="remote-control">
+        <div class="remote-header">
+            <div class="remote-title">馃幃 砖诇讟 专讞讜拽</div>
+            <div class="remote-status" id="remote-connection-status">诪讞讜讘专</div>
+        </div>
+        <div class="remote-scorebar">
+            <div class="remote-team-mini team1">
+                <div class="remote-team-mini-name" id="remote-team1-name">拽讘讜爪讛 讗讚讜诪讛</div>
+                <div class="remote-team-mini-score" id="remote-team1-score">0</div>
+            </div>
+            <div class="remote-team-mini team2">
+                <div class="remote-team-mini-name" id="remote-team2-name">拽讘讜爪讛 讬专讜拽讛</div>
+                <div class="remote-team-mini-score" id="remote-team2-score">0</div>
+            </div>
+        </div>
+        <div class="remote-content" id="remote-content">
+            <!-- Content changes based on phase -->
+        </div>
     </div>
 
     <script>
-        // Game Data
+        // Games data
         const games = [
-            {
-                id: 1,
-                icon: '🧻',
-                title: 'מירוץ נייר טואלט',
-                description: 'כל משתתף מגלגל נייר טואלט עם בובה או כוס על הקצה. הראשון שמסיים מנצח!',
-                materials: 'נייר טואלט, בובות או כוסות',
-                type: 'individual',
-                hasTimer: false,
-                maxScore: 1
-            },
-            {
-                id: 2,
-                icon: '🕯️',
-                title: 'נר לבקבוק',
-                description: 'קושרים נר עם חוט למותניים וצריך לקלוע עם הנר לתוך הבקבוק!',
-                materials: 'נרות, חוט, בקבוק',
-                type: 'individual',
-                hasTimer: false,
-                maxScore: 1
-            },
-            {
-                id: 3,
-                icon: '🐴',
-                title: 'לאסוף עם פרסות',
-                description: 'שמים כוסות על הידיים ואוספים כמה שיותר כדורי כותנה לקערה!',
-                materials: 'כוסות פלסטיק, כדורי כותנה, קערות',
-                type: 'individual',
-                hasTimer: true,
-                maxScore: null
-            },
-            {
-                id: 4,
-                icon: '🥅',
-                title: 'לקלוע גול עם קש',
-                description: 'מנפחים כדור קטן עם קש לתוך כוס מודבקת לקצה השולחן. עד 3 נקודות!',
-                materials: 'כוסות, קשים, כדורים קטנים, סלוטייפ',
-                type: 'individual',
-                hasTimer: false,
-                maxScore: 3
-            },
-            {
-                id: 5,
-                icon: '⭕',
-                title: 'איקס עיגול כוסות',
-                description: 'מירוץ להפוך כוסות! הראשון שמעמיד כוס שם אותה על הלוח. המטרה - לנצח באיקס עיגול!',
-                materials: 'כוסות, לוח איקס עיגול',
-                type: 'individual',
-                hasTimer: false,
-                maxScore: 1
-            },
-            {
-                id: 6,
-                icon: '🪑',
-                title: 'כיסאות מוזיקליים',
-                description: 'מסתובבים סביב השולחן עם מוזיקה. כשהמוזיקה נעצרת - הראשון שתופס את החפץ מנצח! עד 3 נקודות.',
-                materials: 'חפץ קטן, מוזיקה',
-                type: 'individual',
-                hasTimer: false,
-                maxScore: 3
-            },
-            {
-                id: 7,
-                icon: '🔍',
-                title: 'מצא את ההבדל',
-                description: 'קבוצה זוכרת איך הקבוצה השנייה נראית, מסתובבת, והקבוצה השנייה משנה 3 דברים. מי מוצא הכי מהר?',
-                materials: 'אין צורך',
-                type: 'team',
-                hasTimer: true,
-                maxScore: null
-            },
-            {
-                id: 8,
-                icon: '🎭',
-                title: 'פנטומימה',
-                description: 'נציג עומד עם הגב למסך. על המסך תמונה והקבוצה מעבירה בפנטומימה. כמה תמונות בזמן נתון?',
-                materials: 'מסך עם תמונות',
-                type: 'team',
-                hasTimer: true,
-                maxScore: null
-            }
+            { id: 1, icon: '馃Щ', title: '诪讬专讜抓 谞讬讬专 讟讜讗诇讟', description: '讙诇讙讜诇 谞讬讬专 讟讜讗诇讟 注诐 讞驻抓 讘拽爪讛', type: 'individual', hasTimer: false },
+            { id: 2, icon: '馃暞锔?, title: '谞专 诇讘拽讘讜拽', description: '谞专 注诇 讞讜讟 拽砖讜专 诇诪讜转谉 诇转讜讱 讘拽讘讜拽', type: 'individual', hasTimer: false },
+            { id: 3, icon: '馃惔', title: '诇讗住讜祝 注诐 驻专住讜转', description: '讗讬住讜祝 讻讚讜专讬 爪诪专 讙驻谉 注诐 讻讜住讜转 注诇 讛讬讚讬讬诐', type: 'individual', hasTimer: true },
+            { id: 4, icon: '馃', title: '诇拽诇讜注 讙讜诇 注诐 拽砖', description: '谞砖讬驻转 讻讚讜专 诇讻讜住 注诐 拽砖 (诪转讜讱 3)', type: 'individual', hasTimer: false },
+            { id: 5, icon: '猸?, title: '讗讬拽住 注讬讙讜诇 讻讜住讜转', description: '讛驻讬讻转 讻讜住讜转 讜讛谞讞讛 注诇 诇讜讞 讗讬拽住 注讬讙讜诇', type: 'individual', hasTimer: false },
+            { id: 6, icon: '馃獞', title: '讻讬住讗讜转 诪讜讝讬拽诇讬讬诐', description: '讙专住讛 砖诇 讻讬住讗讜转 诪讜讝讬拽诇讬讬诐 (诪转讜讱 3)', type: 'individual', hasTimer: false },
+            { id: 7, icon: '馃攳', title: '诪爪讗 讗转 讛讛讘讚诇', description: '诪爪讬讗转 3 砖讬谞讜讬讬诐 讘拽讘讜爪讛 讛讬专讬讘讛', type: 'team', hasTimer: true },
+            { id: 8, icon: '馃幁', title: '驻谞讟讜诪讬诪讛', description: '砖讞诪讟 - 讛拽讘讜爪讛 诪爪讬讙讛 诇谞爪讬讙 砖诇讛', type: 'team', hasTimer: true }
         ];
 
         // State
         let state = {
-            team1: { name: 'קבוצה אדומה', players: [], score: 0 },
-            team2: { name: 'קבוצה ירוקה', players: [], score: 0 },
-            playedPlayers: { team1: new Set(), team2: new Set() },
-            completedGames: new Set(),
+            mode: null,
+            phase: 'registration',
+            team1: { name: '拽讘讜爪讛 讗讚讜诪讛', players: [], score: 0 },
+            team2: { name: '拽讘讜爪讛 讬专讜拽讛', players: [], score: 0 },
+            playedPlayers: { team1: [], team2: [] },
+            completedGames: [],
             currentGame: null,
             currentPlayers: { team1: [], team2: [] },
             gameScores: { team1: 0, team2: 0 },
-            timer: { seconds: 0, interval: null, running: false }
+            timer: { seconds: 0, running: false },
+            winner: null
         };
 
-        // Initialize
-        function init() {
-            createSnowflakes();
-            renderGamesGrid();
-            setupKeyboardControls();
-        }
+        // PeerJS
+        let peer = null;
+        let conn = null;
+        let roomCode = '';
+        let timerInterval = null;
 
-        // Snowflakes
-        function createSnowflakes() {
-            const container = document.getElementById('snowflakes');
-            const flakes = ['❄', '❅', '❆', '✧', '✦'];
-            for (let i = 0; i < 50; i++) {
-                const flake = document.createElement('div');
-                flake.className = 'snowflake';
-                flake.textContent = flakes[Math.floor(Math.random() * flakes.length)];
-                flake.style.left = Math.random() * 100 + '%';
-                flake.style.animationDuration = (Math.random() * 3 + 5) + 's';
-                flake.style.animationDelay = Math.random() * 5 + 's';
-                flake.style.fontSize = (Math.random() * 1 + 0.5) + 'rem';
-                container.appendChild(flake);
+        // Generate room code
+        function generateRoomCode() {
+            const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+            let code = '';
+            for (let i = 0; i < 4; i++) {
+                code += chars.charAt(Math.floor(Math.random() * chars.length));
             }
+            return code;
         }
 
-        // Screen Management
-        function showScreen(screenId) {
-            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-            document.getElementById(screenId).classList.add('active');
-            
-            // Update keyboard hints visibility
-            const hints = document.getElementById('keyboard-hints');
-            hints.style.display = screenId === 'game-play-screen' ? 'flex' : 'none';
-        }
+        // Select mode
+        function selectMode(mode) {
+            state.mode = mode;
+            document.getElementById('mode-selection').style.display = 'none';
 
-        // Player Management
-        function addPlayer(team) {
-            const input = document.getElementById(`team${team}-new-player`);
-            const name = input.value.trim();
-            if (!name) return;
-
-            state[`team${team}`].players.push(name);
-            input.value = '';
-            renderPlayerList(team);
-        }
-
-        function removePlayer(team, index) {
-            state[`team${team}`].players.splice(index, 1);
-            renderPlayerList(team);
-        }
-
-        function renderPlayerList(team) {
-            const list = document.getElementById(`team${team}-players`);
-            list.innerHTML = state[`team${team}`].players.map((player, i) => `
-                <li class="player-item">
-                    <span>${player}</span>
-                    <button onclick="removePlayer(${team}, ${i})">✕</button>
-                </li>
-            `).join('');
-        }
-
-        // Start Games
-        function startGames() {
-            state.team1.name = document.getElementById('team1-name').value || 'קבוצה אדומה';
-            state.team2.name = document.getElementById('team2-name').value || 'קבוצה ירוקה';
-            
-            updateScoreboard();
-            showScreen('game-selection-screen');
-        }
-
-        // Games Grid
-        function renderGamesGrid() {
-            const grid = document.getElementById('games-grid');
-            grid.innerHTML = games.map(game => `
-                <div class="game-card ${state.completedGames.has(game.id) ? 'completed' : ''}" onclick="selectGame(${game.id})">
-                    <div class="game-icon">${game.icon}</div>
-                    <div class="game-title">${game.title}</div>
-                    <div class="game-type">${game.type === 'team' ? '👥 קבוצתי' : '👤 יחידים'}</div>
-                </div>
-            `).join('');
-        }
-
-        // Update Scoreboard
-        function updateScoreboard() {
-            document.getElementById('scoreboard-team1-name').textContent = state.team1.name;
-            document.getElementById('scoreboard-team2-name').textContent = state.team2.name;
-            document.getElementById('scoreboard-team1-score').textContent = state.team1.score;
-            document.getElementById('scoreboard-team2-score').textContent = state.team2.score;
-        }
-
-        // Select Game
-        function selectGame(gameId) {
-            const game = games.find(g => g.id === gameId);
-            state.currentGame = game;
-            
-            document.getElementById('game-intro-icon').textContent = game.icon;
-            document.getElementById('game-intro-title').textContent = game.title;
-            document.getElementById('game-intro-description').textContent = game.description;
-            document.getElementById('game-intro-materials').textContent = '🎁 מצרכים: ' + game.materials;
-            document.getElementById('game-intro-type').textContent = game.type === 'team' ? '👥 משחק קבוצתי' : '👤 משחק יחידים';
-            
-            const nextBtn = document.getElementById('game-intro-next-btn');
-            if (game.type === 'team') {
-                nextBtn.textContent = 'התחל משחק! 🎯';
-                nextBtn.onclick = () => startGame();
+            if (mode === 'tv') {
+                document.getElementById('tv-connection').style.display = 'flex';
+                initTVMode();
             } else {
-                nextBtn.textContent = 'בחירת משתתפים ➡️';
-                nextBtn.onclick = () => showPlayerSelection();
-            }
-            
-            showScreen('game-intro-screen');
-        }
-
-        function proceedFromIntro() {
-            if (state.currentGame.type === 'team') {
-                startGame();
-            } else {
-                showPlayerSelection();
+                document.getElementById('remote-connection').style.display = 'flex';
             }
         }
 
-        // Player Selection
-        function showPlayerSelection() {
-            state.currentPlayers = { team1: [], team2: [] };
-            
-            document.getElementById('selection-team1-name').textContent = state.team1.name;
-            document.getElementById('selection-team2-name').textContent = state.team2.name;
-            
-            renderSelectionPlayers(1);
-            renderSelectionPlayers(2);
-            
-            showScreen('player-selection-screen');
+        // Init TV Mode
+        function initTVMode() {
+            roomCode = generateRoomCode();
+            document.getElementById('room-code').textContent = roomCode;
+
+            peer = new Peer('noviGod-' + roomCode);
+
+            peer.on('open', (id) => {
+                console.log('TV ready with ID:', id);
+            });
+
+            peer.on('connection', (connection) => {
+                conn = connection;
+                document.getElementById('tv-status').textContent = '诪讞讜讘专!';
+                document.getElementById('tv-status').classList.add('connected');
+
+                setTimeout(() => {
+                    document.getElementById('tv-connection').style.display = 'none';
+                    document.getElementById('tv-display').style.display = 'block';
+                    updateTVDisplay();
+                }, 1000);
+
+                conn.on('data', (data) => {
+                    handleTVMessage(data);
+                });
+
+                conn.on('close', () => {
+                    document.getElementById('tv-status').textContent = '讛转谞转拽 - 专注谞谉 讗转 讛讚祝';
+                    document.getElementById('tv-status').classList.remove('connected');
+                });
+            });
+
+            peer.on('error', (err) => {
+                console.error('Peer error:', err);
+                document.getElementById('tv-status').textContent = '砖讙讬讗讛: ' + err.type;
+            });
         }
 
-        function renderSelectionPlayers(team) {
-            const container = document.getElementById(`selection-team${team}-players`);
-            const teamKey = `team${team}`;
-            
-            container.innerHTML = state[teamKey].players.map((player, i) => {
-                const played = state.playedPlayers[teamKey].has(player);
-                const selected = state.currentPlayers[teamKey].includes(player);
-                return `
-                    <button class="player-select-btn ${played ? 'played' : ''} ${selected ? 'selected' : ''}" 
-                            onclick="togglePlayer(${team}, '${player}')">
-                        ${player}
-                    </button>
-                `;
-            }).join('');
-        }
-
-        function togglePlayer(team, player) {
-            const teamKey = `team${team}`;
-            const index = state.currentPlayers[teamKey].indexOf(player);
-            
-            if (index > -1) {
-                state.currentPlayers[teamKey].splice(index, 1);
-            } else {
-                state.currentPlayers[teamKey].push(player);
+        // Handle code input
+        function handleCodeInput(input, index) {
+            input.value = input.value.toUpperCase();
+            if (input.value && index < 4) {
+                document.getElementById('code-' + (index + 1)).focus();
             }
-            
-            renderSelectionPlayers(team);
         }
 
-        // Start Game
-        function startGame() {
-            state.gameScores = { team1: 0, team2: 0 };
-            
-            document.getElementById('game-play-title').textContent = state.currentGame.title;
-            document.getElementById('play-team1-name').textContent = state.team1.name;
-            document.getElementById('play-team2-name').textContent = state.team2.name;
-            document.getElementById('play-team1-score').textContent = '0';
-            document.getElementById('play-team2-score').textContent = '0';
-            
-            if (state.currentGame.type === 'team') {
-                document.getElementById('game-play-players').textContent = 'כל הקבוצה משתתפת!';
-            } else {
-                const team1Players = state.currentPlayers.team1.join(', ') || 'לא נבחרו';
-                const team2Players = state.currentPlayers.team2.join(', ') || 'לא נבחרו';
-                document.getElementById('game-play-players').textContent = `${team1Players} ⚔️ ${team2Players}`;
+        // Connect to TV
+        function connectToTV() {
+            const code =
+                document.getElementById('code-1').value +
+                document.getElementById('code-2').value +
+                document.getElementById('code-3').value +
+                document.getElementById('code-4').value;
+
+            if (code.length !== 4) {
+                document.getElementById('remote-status').textContent = '讛讻谞住 拽讜讚 讘谉 4 转讜讜讬诐';
+                return;
             }
-            
-            // Timer
-            const timerContainer = document.getElementById('timer-container');
-            if (state.currentGame.hasTimer) {
-                timerContainer.style.display = 'block';
-                resetTimer();
-            } else {
-                timerContainer.style.display = 'none';
+
+            document.getElementById('remote-status').textContent = '诪转讞讘专...';
+
+            peer = new Peer();
+
+            peer.on('open', () => {
+                conn = peer.connect('noviGod-' + code);
+
+                conn.on('open', () => {
+                    document.getElementById('remote-status').textContent = '诪讞讜讘专!';
+                    document.getElementById('remote-status').classList.add('connected');
+
+                    setTimeout(() => {
+                        document.getElementById('remote-connection').style.display = 'none';
+                        document.getElementById('remote-control').style.display = 'block';
+                        sendMessage({ type: 'request-state' });
+                    }, 500);
+                });
+
+                conn.on('data', (data) => {
+                    handleRemoteMessage(data);
+                });
+
+                conn.on('close', () => {
+                    document.getElementById('remote-connection-status').textContent = '讛转谞转拽';
+                    document.getElementById('remote-connection-status').classList.remove('connected');
+                });
+            });
+
+            peer.on('error', (err) => {
+                console.error('Peer error:', err);
+                document.getElementById('remote-status').textContent = '砖讙讬讗讛: ' + err.type;
+            });
+        }
+
+        // Send message
+        function sendMessage(data) {
+            if (conn && conn.open) {
+                conn.send(data);
             }
-            
-            showScreen('game-play-screen');
         }
 
-        // Game Score
-        function updateGameScore(team, delta) {
-            const teamKey = `team${team}`;
-            state.gameScores[teamKey] = Math.max(0, state.gameScores[teamKey] + delta);
-            document.getElementById(`play-team${team}-score`).textContent = state.gameScores[teamKey];
+        // Handle TV messages
+        function handleTVMessage(data) {
+            console.log('TV received:', data);
+
+            switch (data.type) {
+                case 'request-state':
+                    sendStateUpdate();
+                    break;
+                case 'update-team-name':
+                    state[data.team].name = data.name;
+                    sendStateUpdate();
+                    break;
+                case 'add-player':
+                    if (state[data.team].players.length < 7) {
+                        state[data.team].players.push(data.player);
+                        sendStateUpdate();
+                    }
+                    break;
+                case 'remove-player':
+                    state[data.team].players.splice(data.index, 1);
+                    sendStateUpdate();
+                    break;
+                case 'start-games':
+                    state.phase = 'game-selection';
+                    sendStateUpdate();
+                    break;
+                case 'select-game':
+                    state.currentGame = games.find(g => g.id === data.gameId);
+                    state.gameScores = { team1: 0, team2: 0 };
+                    state.currentPlayers = { team1: [], team2: [] };
+                    state.timer = { seconds: 0, running: false };
+                    state.phase = 'player-selection';
+                    sendStateUpdate();
+                    break;
+                case 'select-player':
+                    const playerList = state.currentPlayers[data.team];
+                    const idx = playerList.indexOf(data.player);
+                    if (idx > -1) {
+                        playerList.splice(idx, 1);
+                    } else {
+                        if (state.currentGame.type === 'team') {
+                            state.currentPlayers[data.team] = state[data.team].players.slice();
+                        } else {
+                            state.currentPlayers[data.team] = [data.player];
+                        }
+                    }
+                    sendStateUpdate();
+                    break;
+                case 'start-game':
+                    state.phase = 'playing';
+                    sendStateUpdate();
+                    break;
+                case 'update-score':
+                    state.gameScores[data.team] = Math.max(0, state.gameScores[data.team] + data.delta);
+                    sendStateUpdate();
+                    break;
+                case 'timer-start':
+                    state.timer.running = true;
+                    startTimer();
+                    sendStateUpdate();
+                    break;
+                case 'timer-stop':
+                    state.timer.running = false;
+                    stopTimer();
+                    sendStateUpdate();
+                    break;
+                case 'timer-reset':
+                    state.timer.seconds = 0;
+                    state.timer.running = false;
+                    stopTimer();
+                    sendStateUpdate();
+                    break;
+                case 'finish-game':
+                    // Determine winner
+                    if (state.gameScores.team1 > state.gameScores.team2) {
+                        state.winner = 'team1';
+                        state.team1.score++;
+                    } else if (state.gameScores.team2 > state.gameScores.team1) {
+                        state.winner = 'team2';
+                        state.team2.score++;
+                    } else {
+                        state.winner = 'tie';
+                    }
+                    // Mark players as played
+                    state.currentPlayers.team1.forEach(p => {
+                        if (!state.playedPlayers.team1.includes(p)) {
+                            state.playedPlayers.team1.push(p);
+                        }
+                    });
+                    state.currentPlayers.team2.forEach(p => {
+                        if (!state.playedPlayers.team2.includes(p)) {
+                            state.playedPlayers.team2.push(p);
+                        }
+                    });
+                    // Mark game as completed
+                    if (!state.completedGames.includes(state.currentGame.id)) {
+                        state.completedGames.push(state.currentGame.id);
+                    }
+                    state.phase = 'winner';
+                    stopTimer();
+                    sendStateUpdate();
+                    break;
+                case 'back-to-selection':
+                    state.phase = 'game-selection';
+                    state.currentGame = null;
+                    state.winner = null;
+                    sendStateUpdate();
+                    break;
+                case 'show-final':
+                    // Determine overall winner
+                    if (state.team1.score > state.team2.score) {
+                        state.winner = 'team1';
+                    } else if (state.team2.score > state.team1.score) {
+                        state.winner = 'team2';
+                    } else {
+                        state.winner = 'tie';
+                    }
+                    state.phase = 'final';
+                    sendStateUpdate();
+                    break;
+            }
+
+            updateTVDisplay();
         }
 
-        // Timer
+        // Send state update
+        function sendStateUpdate() {
+            sendMessage({ type: 'state-update', state: state });
+        }
+
+        // Handle Remote messages
+        function handleRemoteMessage(data) {
+            console.log('Remote received:', data);
+            if (data.type === 'state-update') {
+                state = data.state;
+                updateRemoteDisplay();
+            }
+        }
+
+        // Timer functions
         function startTimer() {
-            if (state.timer.running) return;
-            state.timer.running = true;
-            state.timer.interval = setInterval(() => {
+            stopTimer();
+            timerInterval = setInterval(() => {
                 state.timer.seconds++;
-                updateTimerDisplay();
+                updateTVDisplay();
+                sendStateUpdate();
             }, 1000);
         }
 
         function stopTimer() {
-            state.timer.running = false;
-            clearInterval(state.timer.interval);
-        }
-
-        function resetTimer() {
-            stopTimer();
-            state.timer.seconds = 0;
-            updateTimerDisplay();
-        }
-
-        function updateTimerDisplay() {
-            const mins = Math.floor(state.timer.seconds / 60).toString().padStart(2, '0');
-            const secs = (state.timer.seconds % 60).toString().padStart(2, '0');
-            document.getElementById('timer-display').textContent = `${mins}:${secs}`;
-        }
-
-        // Finish Game
-        function finishGame() {
-            stopTimer();
-            
-            // Mark players as played
-            if (state.currentGame.type !== 'team') {
-                state.currentPlayers.team1.forEach(p => state.playedPlayers.team1.add(p));
-                state.currentPlayers.team2.forEach(p => state.playedPlayers.team2.add(p));
-            }
-            
-            // Determine winner
-            let winner = null;
-            if (state.gameScores.team1 > state.gameScores.team2) {
-                state.team1.score++;
-                winner = { name: state.team1.name, color: 'red' };
-            } else if (state.gameScores.team2 > state.gameScores.team1) {
-                state.team2.score++;
-                winner = { name: state.team2.name, color: 'green' };
-            }
-            
-            // Mark game as completed
-            state.completedGames.add(state.currentGame.id);
-            renderGamesGrid();
-            updateScoreboard();
-            
-            if (winner) {
-                const winnerName = document.getElementById('winner-name');
-                winnerName.textContent = winner.name;
-                winnerName.className = 'winner-name ' + winner.color;
-                showScreen('winner-screen');
-            } else {
-                showScreen('game-selection-screen');
+            if (timerInterval) {
+                clearInterval(timerInterval);
+                timerInterval = null;
             }
         }
 
-        // Final Results
-        function showFinalResults() {
-            let winnerName, finalScore;
-            
-            if (state.team1.score > state.team2.score) {
-                winnerName = state.team1.name;
-            } else if (state.team2.score > state.team1.score) {
-                winnerName = state.team2.name;
-            } else {
-                winnerName = 'תיקו!';
-            }
-            
-            document.getElementById('final-winner-name').textContent = winnerName;
-            document.getElementById('final-score').textContent = `${state.team1.score} - ${state.team2.score}`;
-            
-            showScreen('final-screen');
-            createConfetti();
+        function formatTime(seconds) {
+            const mins = Math.floor(seconds / 60);
+            const secs = seconds % 60;
+            return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
         }
 
-        // Confetti
-        function createConfetti() {
-            const colors = ['#e63946', '#2d6a4f', '#ffd700', '#ff6b6b', '#40916c'];
-            for (let i = 0; i < 100; i++) {
-                setTimeout(() => {
-                    const confetti = document.createElement('div');
-                    confetti.className = 'confetti';
-                    confetti.style.left = Math.random() * 100 + '%';
-                    confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
-                    confetti.style.animationDuration = (Math.random() * 2 + 2) + 's';
-                    confetti.style.width = (Math.random() * 10 + 5) + 'px';
-                    confetti.style.height = (Math.random() * 10 + 5) + 'px';
-                    confetti.style.borderRadius = Math.random() > 0.5 ? '50%' : '0';
-                    document.body.appendChild(confetti);
-                    
-                    setTimeout(() => confetti.remove(), 4000);
-                }, i * 50);
-            }
+        // Update TV Display
+        function updateTVDisplay() {
+            // Update header scores
+            document.getElementById('tv-team1-name').textContent = state.team1.name;
+            document.getElementById('tv-team2-name').textContent = state.team2.name;
+            document.getElementById('tv-team1-score').textContent = state.team1.score;
+            document.getElementById('tv-team2-score').textContent = state.team2.score;
+
+            // Update panel names
+            document.getElementById('tv-panel-team1-name').textContent = state.team1.name;
+            document.getElementById('tv-panel-team2-name').textContent = state.team2.name;
+
+            // Update player lists
+            updateTVPlayerList('team1');
+            updateTVPlayerList('team2');
+
+            // Update center content
+            updateTVCenter();
         }
 
-        // Keyboard Controls
-        function setupKeyboardControls() {
-            document.addEventListener('keydown', (e) => {
-                const currentScreen = document.querySelector('.screen.active').id;
-                
-                if (currentScreen === 'game-play-screen') {
-                    switch(e.key.toLowerCase()) {
-                        case 'q': updateGameScore(1, 1); break;
-                        case 'a': updateGameScore(1, -1); break;
-                        case 'p': updateGameScore(2, 1); break;
-                        case 'l': updateGameScore(2, -1); break;
-                        case ' ':
-                            e.preventDefault();
-                            state.timer.running ? stopTimer() : startTimer();
-                            break;
-                        case 'enter': finishGame(); break;
-                        case 'escape': showScreen('game-selection-screen'); break;
-                    }
-                }
+        function updateTVPlayerList(team) {
+            const container = document.getElementById(`tv-${team}-players`);
+            container.innerHTML = '';
 
-                // Enter for add player
-                if (currentScreen === 'registration-screen') {
-                    if (e.key === 'Enter') {
-                        if (document.activeElement.id === 'team1-new-player') addPlayer(1);
-                        if (document.activeElement.id === 'team2-new-player') addPlayer(2);
-                    }
-                }
+            state[team].players.forEach(player => {
+                const div = document.createElement('div');
+                div.className = 'tv-player';
+
+                const played = state.playedPlayers[team].includes(player);
+                const playing = state.currentPlayers[team].includes(player);
+
+                if (played && !playing) div.classList.add('played');
+                if (playing) div.classList.add('playing');
+
+                div.innerHTML = `
+                    <span>${player}</span>
+                    ${played ? '<span class="player-badge">砖讬讞拽</span>' : ''}
+                `;
+                container.appendChild(div);
             });
         }
 
-        // Init on load
-        init();
+        function updateTVCenter() {
+            const center = document.getElementById('tv-center');
+
+            switch (state.phase) {
+                case 'registration':
+                    center.innerHTML = '<div class="tv-phase-text">诪讜住讬驻讬诐 砖讞拽谞讬诐...</div>';
+                    break;
+
+                case 'game-selection':
+                    center.innerHTML = '<div class="tv-phase-text">讘讜讞专讬诐 诪砖讞拽...</div>';
+                    break;
+
+                case 'player-selection':
+                    center.innerHTML = `
+                        <div class="tv-game-icon">${state.currentGame.icon}</div>
+                        <div class="tv-game-title">${state.currentGame.title}</div>
+                        <div class="tv-game-desc">${state.currentGame.description}</div>
+                        <div class="tv-phase-text">讘讜讞专讬诐 砖讞拽谞讬诐...</div>
+                    `;
+                    break;
+
+                case 'playing':
+                    let timerHtml = '';
+                    if (state.currentGame.hasTimer) {
+                        timerHtml = `<div class="tv-timer">${formatTime(state.timer.seconds)}</div>`;
+                    }
+                    center.innerHTML = `
+                        <div class="tv-game-icon">${state.currentGame.icon}</div>
+                        <div class="tv-game-title">${state.currentGame.title}</div>
+                        ${timerHtml}
+                        <div class="tv-game-scores">
+                            <div class="tv-game-score team1">
+                                <div class="tv-game-score-value">${state.gameScores.team1}</div>
+                                <div class="tv-game-score-label">${state.team1.name}</div>
+                            </div>
+                            <div class="tv-game-score team2">
+                                <div class="tv-game-score-value">${state.gameScores.team2}</div>
+                                <div class="tv-game-score-label">${state.team2.name}</div>
+                            </div>
+                        </div>
+                    `;
+                    break;
+
+                case 'winner':
+                    let winnerName = state.winner === 'tie' ? '转讬拽讜!' : state[state.winner].name;
+                    center.innerHTML = `
+                        <div class="tv-winner">
+                            <div class="tv-winner-trophy">馃弳</div>
+                            <div class="tv-winner-text ${state.winner}">${winnerName} 谞讬爪讞讛!</div>
+                        </div>
+                    `;
+                    break;
+
+                case 'final':
+                    let finalWinnerName = state.winner === 'tie' ? '转讬拽讜!' : state[state.winner].name;
+                    center.innerHTML = `
+                        <div class="tv-final">
+                            <div class="tv-final-crown">馃憫</div>
+                            <div class="tv-final-title">讛诪谞爪讞讬诐 砖诇 Novi God Olympics!</div>
+                            <div class="tv-final-winner ${state.winner}">${finalWinnerName}</div>
+                            <div class="tv-final-scores">
+                                <div class="tv-final-score team1">
+                                    <div class="tv-final-score-value">${state.team1.score}</div>
+                                    <div>${state.team1.name}</div>
+                                </div>
+                                <div class="tv-final-score team2">
+                                    <div class="tv-final-score-value">${state.team2.score}</div>
+                                    <div>${state.team2.name}</div>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    // Show confetti
+                    document.getElementById('confetti').classList.add('active');
+                    createConfetti();
+                    break;
+            }
+        }
+
+        // Update Remote Display
+        function updateRemoteDisplay() {
+            // Update scorebar
+            document.getElementById('remote-team1-name').textContent = state.team1.name;
+            document.getElementById('remote-team2-name').textContent = state.team2.name;
+            document.getElementById('remote-team1-score').textContent = state.team1.score;
+            document.getElementById('remote-team2-score').textContent = state.team2.score;
+
+            // Update content based on phase
+            const content = document.getElementById('remote-content');
+
+            switch (state.phase) {
+                case 'registration':
+                    content.innerHTML = renderRegistration();
+                    break;
+
+                case 'game-selection':
+                    content.innerHTML = renderGameSelection();
+                    break;
+
+                case 'player-selection':
+                    content.innerHTML = renderPlayerSelection();
+                    break;
+
+                case 'playing':
+                    content.innerHTML = renderPlaying();
+                    break;
+
+                case 'winner':
+                    content.innerHTML = renderWinner();
+                    break;
+
+                case 'final':
+                    content.innerHTML = renderFinal();
+                    document.getElementById('confetti').classList.add('active');
+                    createConfetti();
+                    break;
+            }
+        }
+
+        function renderRegistration() {
+            const canStart = state.team1.players.length > 0 && state.team2.players.length > 0;
+            return `
+                <div class="registration-teams">
+                    <div class="registration-team team1">
+                        <div class="registration-team-header">
+                            <input type="text" class="registration-team-name-input"
+                                value="${state.team1.name}"
+                                onchange="updateTeamName('team1', this.value)"
+                                placeholder="砖诐 拽讘讜爪讛">
+                        </div>
+                        <div class="registration-player-list">
+                            ${state.team1.players.map((p, i) => `
+                                <div class="registration-player">
+                                    ${p}
+                                    <span class="registration-player-remove" onclick="removePlayer('team1', ${i})">鉁?/span>
+                                </div>
+                            `).join('')}
+                        </div>
+                        <div class="registration-add-player">
+                            <input type="text" id="new-player-team1" placeholder="砖诐 砖讞拽谉" onkeypress="if(event.key==='Enter')addPlayer('team1')">
+                            <button onclick="addPlayer('team1')">+</button>
+                        </div>
+                    </div>
+                    <div class="registration-team team2">
+                        <div class="registration-team-header">
+                            <input type="text" class="registration-team-name-input"
+                                value="${state.team2.name}"
+                                onchange="updateTeamName('team2', this.value)"
+                                placeholder="砖诐 拽讘讜爪讛">
+                        </div>
+                        <div class="registration-player-list">
+                            ${state.team2.players.map((p, i) => `
+                                <div class="registration-player">
+                                    ${p}
+                                    <span class="registration-player-remove" onclick="removePlayer('team2', ${i})">鉁?/span>
+                                </div>
+                            `).join('')}
+                        </div>
+                        <div class="registration-add-player">
+                            <input type="text" id="new-player-team2" placeholder="砖诐 砖讞拽谉" onkeypress="if(event.key==='Enter')addPlayer('team2')">
+                            <button onclick="addPlayer('team2')">+</button>
+                        </div>
+                    </div>
+                </div>
+                <button class="start-games-btn" onclick="startGames()" ${canStart ? '' : 'disabled'}>
+                    讛转讞诇 诪砖讞拽讬诐! 馃帀
+                </button>
+            `;
+        }
+
+        function renderGameSelection() {
+            return `
+                <div class="game-grid">
+                    ${games.map(game => `
+                        <div class="game-card ${state.completedGames.includes(game.id) ? 'completed' : ''}"
+                             onclick="selectGame(${game.id})">
+                            <div class="game-card-icon">${game.icon}</div>
+                            <div class="game-card-title">${game.title}</div>
+                        </div>
+                    `).join('')}
+                </div>
+                <button class="finish-olympics-btn" onclick="showFinal()">
+                    住讬讜诐 讜讛讻专讝转 诪谞爪讞 馃弳
+                </button>
+            `;
+        }
+
+        function renderPlayerSelection() {
+            const game = state.currentGame;
+            const isTeamGame = game.type === 'team';
+
+            return `
+                <div class="player-selection">
+                    <div class="player-selection-game">${game.icon}</div>
+                    <div class="player-selection-title">${game.title}</div>
+                    <p style="color: var(--text-muted); margin-bottom: 20px;">
+                        ${isTeamGame ? '诪砖讞拽 拽讘讜爪转讬 - 讻诇 讛拽讘讜爪讛 诪砖转转驻转' : '讘讞专 砖讞拽谉 诪讻诇 拽讘讜爪讛'}
+                    </p>
+                    <div class="player-selection-teams">
+                        <div class="player-selection-team team1">
+                            <div class="player-selection-team-title">${state.team1.name}</div>
+                            <div class="player-selection-list">
+                                ${state.team1.players.map(p => `
+                                    <div class="player-selection-item
+                                        ${state.playedPlayers.team1.includes(p) ? 'played' : ''}
+                                        ${state.currentPlayers.team1.includes(p) ? 'selected' : ''}"
+                                        onclick="selectPlayer('team1', '${p}')">
+                                        ${p}
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                        <div class="player-selection-team team2">
+                            <div class="player-selection-team-title">${state.team2.name}</div>
+                            <div class="player-selection-list">
+                                ${state.team2.players.map(p => `
+                                    <div class="player-selection-item
+                                        ${state.playedPlayers.team2.includes(p) ? 'played' : ''}
+                                        ${state.currentPlayers.team2.includes(p) ? 'selected' : ''}"
+                                        onclick="selectPlayer('team2', '${p}')">
+                                        ${p}
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                    </div>
+                    <button class="start-game-btn" onclick="startGame()"
+                        ${state.currentPlayers.team1.length > 0 && state.currentPlayers.team2.length > 0 ? '' : 'disabled'}>
+                        讛转讞诇! 馃幃
+                    </button>
+                </div>
+            `;
+        }
+
+        function renderPlaying() {
+            const game = state.currentGame;
+            let timerHtml = '';
+
+            if (game.hasTimer) {
+                timerHtml = `
+                    <div class="playing-timer">
+                        <div class="playing-timer-display">${formatTime(state.timer.seconds)}</div>
+                        <div class="playing-timer-controls">
+                            ${state.timer.running
+                                ? '<button class="timer-btn stop" onclick="timerStop()">注爪讜专</button>'
+                                : '<button class="timer-btn start" onclick="timerStart()">讛转讞诇</button>'
+                            }
+                            <button class="timer-btn" onclick="timerReset()">讗讬驻讜住</button>
+                        </div>
+                    </div>
+                `;
+            }
+
+            return `
+                <div class="playing-view">
+                    <div class="playing-game-name">${game.icon} ${game.title}</div>
+                    ${timerHtml}
+                    <div class="playing-scores">
+                        <div class="playing-score-card team1">
+                            <div class="playing-score-team">${state.team1.name}</div>
+                            <div class="playing-score-value">${state.gameScores.team1}</div>
+                            <div class="playing-score-controls">
+                                <button class="score-btn" onclick="updateScore('team1', -1)">-</button>
+                                <button class="score-btn" onclick="updateScore('team1', 1)">+</button>
+                            </div>
+                        </div>
+                        <div class="playing-score-card team2">
+                            <div class="playing-score-team">${state.team2.name}</div>
+                            <div class="playing-score-value">${state.gameScores.team2}</div>
+                            <div class="playing-score-controls">
+                                <button class="score-btn" onclick="updateScore('team2', -1)">-</button>
+                                <button class="score-btn" onclick="updateScore('team2', 1)">+</button>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="finish-game-btn" onclick="finishGame()">住讬讜诐 诪砖讞拽 馃弫</button>
+                </div>
+            `;
+        }
+
+        function renderWinner() {
+            let winnerName = state.winner === 'tie' ? '转讬拽讜!' : state[state.winner].name + ' 谞讬爪讞讛!';
+            return `
+                <div class="winner-view">
+                    <div class="winner-trophy">馃弳</div>
+                    <div class="winner-text ${state.winner}">${winnerName}</div>
+                    <button class="next-game-btn" onclick="backToSelection()">诇诪砖讞拽 讛讘讗 鉃★笍</button>
+                </div>
+            `;
+        }
+
+        function renderFinal() {
+            let finalWinnerName = state.winner === 'tie' ? '转讬拽讜!' : state[state.winner].name + ' 讛诪谞爪讞转!';
+            return `
+                <div class="final-view">
+                    <div class="final-crown">馃憫</div>
+                    <div class="final-title">讛诪谞爪讞讬诐 砖诇 Novi God Olympics!</div>
+                    <div class="final-winner ${state.winner}">${finalWinnerName}</div>
+                    <div class="final-scores">
+                        <div class="final-score team1">
+                            <div class="final-score-value">${state.team1.score}</div>
+                            <div>${state.team1.name}</div>
+                        </div>
+                        <div class="final-score team2">
+                            <div class="final-score-value">${state.team2.score}</div>
+                            <div>${state.team2.name}</div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Action functions
+        function updateTeamName(team, name) {
+            sendMessage({ type: 'update-team-name', team, name });
+        }
+
+        function addPlayer(team) {
+            const input = document.getElementById(`new-player-${team}`);
+            const name = input.value.trim();
+            if (name) {
+                sendMessage({ type: 'add-player', team, player: name });
+                input.value = '';
+            }
+        }
+
+        function removePlayer(team, index) {
+            sendMessage({ type: 'remove-player', team, index });
+        }
+
+        function startGames() {
+            sendMessage({ type: 'start-games' });
+        }
+
+        function selectGame(gameId) {
+            if (!state.completedGames.includes(gameId)) {
+                sendMessage({ type: 'select-game', gameId });
+            }
+        }
+
+        function selectPlayer(team, player) {
+            sendMessage({ type: 'select-player', team, player });
+        }
+
+        function startGame() {
+            sendMessage({ type: 'start-game' });
+        }
+
+        function updateScore(team, delta) {
+            sendMessage({ type: 'update-score', team, delta });
+        }
+
+        function timerStart() {
+            sendMessage({ type: 'timer-start' });
+        }
+
+        function timerStop() {
+            sendMessage({ type: 'timer-stop' });
+        }
+
+        function timerReset() {
+            sendMessage({ type: 'timer-reset' });
+        }
+
+        function finishGame() {
+            sendMessage({ type: 'finish-game' });
+        }
+
+        function backToSelection() {
+            sendMessage({ type: 'back-to-selection' });
+        }
+
+        function showFinal() {
+            sendMessage({ type: 'show-final' });
+        }
+
+        // Create snowflakes
+        function createSnowflakes() {
+            const container = document.getElementById('snowflakes');
+            const snowflakeChars = ['鉂?, '鉂?, '鉂?, '鉁?, '鉁?];
+
+            for (let i = 0; i < 50; i++) {
+                const snowflake = document.createElement('div');
+                snowflake.className = 'snowflake';
+                snowflake.textContent = snowflakeChars[Math.floor(Math.random() * snowflakeChars.length)];
+                snowflake.style.left = Math.random() * 100 + '%';
+                snowflake.style.animationDuration = (Math.random() * 10 + 5) + 's';
+                snowflake.style.animationDelay = (Math.random() * 10) + 's';
+                snowflake.style.fontSize = (Math.random() * 15 + 10) + 'px';
+                snowflake.style.opacity = Math.random() * 0.7 + 0.3;
+                container.appendChild(snowflake);
+            }
+        }
+
+        // Create confetti
+        function createConfetti() {
+            const container = document.getElementById('confetti');
+            container.innerHTML = '';
+            const colors = ['#e63946', '#40916c', '#ffd700', '#ffffff', '#ff6b6b', '#4ecdc4'];
+
+            for (let i = 0; i < 100; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.left = Math.random() * 100 + '%';
+                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                confetti.style.animationDelay = (Math.random() * 2) + 's';
+                confetti.style.width = (Math.random() * 10 + 5) + 'px';
+                confetti.style.height = (Math.random() * 10 + 5) + 'px';
+                confetti.style.borderRadius = Math.random() > 0.5 ? '50%' : '0';
+                container.appendChild(confetti);
+            }
+        }
+
+        // Initialize
+        createSnowflakes();
     </script>
 </body>
 </html>
